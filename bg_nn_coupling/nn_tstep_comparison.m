@@ -17,10 +17,10 @@ sub_dirs={...
 
 fig=figure;
 set(fig,'unit','normalized','position',[.1,.1,.6,.9]);
+ax = multipanel(fig,2,2,[.1,.1],[.4,.4],[.075,.05]);
 
 year=[1850,2000];
 
-ax = multipanel(fig,2,2,[.1,.1],[.4,.4],[.075,.05]);
     
 cc={'b','g','k','m'};
 var='TOTCOLC';docum=0;
