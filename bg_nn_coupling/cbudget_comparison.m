@@ -21,7 +21,7 @@ sub_dirs={...
 sims={'clm3adt','clm3','cent','clm'};
 %ax = multipanel(fig,2,2,[.1,.1],[.4,.4],[.075,.05]);
     
-cc={'b','g','k','m'};
+cc={'m','r','g','b'};
 is_load=1;
 if(is_load)
     load('cflxes.mat');
@@ -164,7 +164,10 @@ for k = 1 : 4
     fh(2)=plot(years,(hr21(:,k)).*tyear,cc{2},'LineWidth',2);        
     fh(3)=plot(years,(hr31(:,k)).*tyear,cc{3},'LineWidth',2);        
     fh(4)=plot(years,(hr41(:,k)).*tyear,cc{4},'LineWidth',2);        
- 
+%    fh(1)=plot(years,(cfire11(:,k)).*tyear,cc{1},'LineWidth',2);hold on;    
+%    fh(2)=plot(years,(cfire21(:,k)).*tyear,cc{2},'LineWidth',2);        
+%    fh(3)=plot(years,(cfire31(:,k)).*tyear,cc{3},'LineWidth',2);        
+%    fh(4)=plot(years,(cfire41(:,k)).*tyear,cc{4},'LineWidth',2);   
 end
 txt={'(a)(74.67^\circW,40.6^\circN)','(b)(26.22^\circE,67.7^\circN)',...
     '(c)(50.02^\circW,4.88^\circS)','(d)(51.5^\circW,30.0^\circS)'};
@@ -178,5 +181,5 @@ for k = 1 : 4
     %ylabel('Total vegetation nitrogen (g N m^-^2)','FontSize',14);    
     put_tag(fig,ax(k),[.05,.95],txt{k},14);
 end
-legend(fh,'PNL-adapt','PNL','NUL','MNL');
 
+legend(fh(4:-1:1),'MNL','NUL','PNL','PNL-adapt');

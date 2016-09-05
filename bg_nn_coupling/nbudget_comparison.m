@@ -1,6 +1,7 @@
 close all;
 clear all;
 clc;
+%This draws figure 4.
 addpath(genpath('~/work/github_rep/matlab_tools/'));
 
 mother_dir='/Users/jinyuntang/work/data_collection/clm_output/bg_nn_coupling';
@@ -21,7 +22,8 @@ sub_dirs={...
 sims={'clm3adt','clm3','cent','clm'};
 %ax = multipanel(fig,2,2,[.1,.1],[.4,.4],[.075,.05]);
     
-cc={'b','g','k','m'};
+
+cc={'m','r','g','b'};
 is_load=1;
 if(is_load)
     load('nflxes.mat');
@@ -227,7 +229,8 @@ sites={'(a1)','(b1)','(c1)','(d1)',...
 for jj = 1 : 16
     put_tag(fig,ax(jj),[.025,.93],sites{jj},14);
 end
-legend(hh,'PNL-adapt','PNL','NUL','MNL');
+
+legend(hh(4:-1:1),'MNL','NUL','PNL','PNL-adapt');
 set(fig,'Color','w');
 return;
 %derive the fraction of runoff
