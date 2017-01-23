@@ -4,20 +4,20 @@ clc;
 
 
 loadit=1;
-mother_dir='/Users/jinyuntang/work/data_collection/clm_output/bg_nn_coupling/RCP45';
+mother_dir='/Users/jinyuntang/work/data_collection/clm_output/bg_nn_coupling/1850-2000';
 
 child_dirs={'betr_clm_derive',...    %CLM,  MNL
 'betr_cent_derive',...               %CENT, NUL
 'betr_clm3_derive',...               %CLM3, PNL
 'betr_clm3_cent_derive',...          %CLM3C,PNLIC
-'betr_clmo_derive'};                 %CMLO, PNLO};
+'betr_clmo_derive',...};                 %CMLO, PNLO};
+'default_derive'};
 
-stem1='cwd_state.RCP45.2001-2300.nc';
 
-stem2='prod.RCP45.2001-2300.nc';
+purple= [0.5 0 0.5];
+stem1='prod_cwdc.1850-2000.nc';
 
-stem3='seed.RCP45.2001-2300.nc';
-
+stem2='seed.1850-2000.nc';
 
 clr={'b','g','r','c','k'};
 
@@ -62,7 +62,7 @@ if(~loadit)
 j=1;
 ncf1=sprintf('%s/%s/%s',mother_dir,child_dirs{j},stem1);
 ncf2=sprintf('%s/%s/%s',mother_dir,child_dirs{j},stem2);
-ncf3=sprintf('%s/%s/%s',mother_dir,child_dirs{j},stem3);
+
 
 
 data=netcdf(ncf1,'var',var_cwd);
@@ -74,7 +74,7 @@ cwd_trop_ts_mnl=flux_area_avg(data,areatrop).*area_sum_m2_trop.*g2Pg;
 cwd_t23south_ts_mnl=flux_area_avg(data,areat23south).*area_sum_m2_t23south.*g2Pg;
 cwd_t23north_ts_mnl=flux_area_avg(data,areat23north).*area_sum_m2_t23north.*g2Pg;
 
-data=netcdf(ncf2,'var',var_prod)+netcdf(ncf3,'var',var_seed);
+data=netcdf(ncf1,'var',var_prod)+netcdf(ncf2,'var',var_seed);
 
 prod_glb_ts_mnl=flux_area_avg(data,area).*area_sum_m2_glb.*g2Pg;
 prod_arc_ts_mnl=flux_area_avg(data,areaarc).*area_sum_m2_arc.*g2Pg;
@@ -96,7 +96,7 @@ cwd_trop_ts_nul=flux_area_avg(data,areatrop).*area_sum_m2_trop.*g2Pg;
 cwd_t23south_ts_nul=flux_area_avg(data,areat23south).*area_sum_m2_t23south.*g2Pg;
 cwd_t23north_ts_nul=flux_area_avg(data,areat23north).*area_sum_m2_t23north.*g2Pg;
 
-data=netcdf(ncf2,'var',var_prod)+netcdf(ncf3,'var',var_seed);
+data=netcdf(ncf1,'var',var_prod)+netcdf(ncf2,'var',var_seed);
 
 prod_glb_ts_nul=flux_area_avg(data,area).*area_sum_m2_glb.*g2Pg;
 prod_arc_ts_nul=flux_area_avg(data,areaarc).*area_sum_m2_arc.*g2Pg;
@@ -118,7 +118,7 @@ cwd_t23south_ts_pnl=flux_area_avg(data,areat23south).*area_sum_m2_t23south.*g2Pg
 cwd_t23north_ts_pnl=flux_area_avg(data,areat23north).*area_sum_m2_t23north.*g2Pg;
 
 
-data=netcdf(ncf2,'var',var_prod)+netcdf(ncf3,'var',var_seed);
+data=netcdf(ncf1,'var',var_prod)+netcdf(ncf2,'var',var_seed);
 
 prod_glb_ts_pnl=flux_area_avg(data,area).*area_sum_m2_glb.*g2Pg;
 prod_arc_ts_pnl=flux_area_avg(data,areaarc).*area_sum_m2_arc.*g2Pg;
@@ -139,7 +139,7 @@ cwd_trop_ts_pnlic=flux_area_avg(data,areatrop).*area_sum_m2_trop.*g2Pg;
 cwd_t23south_ts_pnlic=flux_area_avg(data,areat23south).*area_sum_m2_t23south.*g2Pg;
 cwd_t23north_ts_pnlic=flux_area_avg(data,areat23north).*area_sum_m2_t23north.*g2Pg;
 
-data=netcdf(ncf2,'var',var_prod)+netcdf(ncf3,'var',var_seed);
+data=netcdf(ncf1,'var',var_prod)+netcdf(ncf2,'var',var_seed);
 
 prod_glb_ts_pnlic=flux_area_avg(data,area).*area_sum_m2_glb.*g2Pg;
 prod_arc_ts_pnlic=flux_area_avg(data,areaarc).*area_sum_m2_arc.*g2Pg;
@@ -160,7 +160,7 @@ cwd_trop_ts_pnlo=flux_area_avg(data,areatrop).*area_sum_m2_trop.*g2Pg;
 cwd_t23south_ts_pnlo=flux_area_avg(data,areat23south).*area_sum_m2_t23south.*g2Pg;
 cwd_t23north_ts_pnlo=flux_area_avg(data,areat23north).*area_sum_m2_t23north.*g2Pg;
 
-data=netcdf(ncf2,'var',var_prod)+netcdf(ncf3,'var',var_seed);
+data=netcdf(ncf1,'var',var_prod)+netcdf(ncf2,'var',var_seed);
 
 prod_glb_ts_pnlo=flux_area_avg(data,area).*area_sum_m2_glb.*g2Pg;
 prod_arc_ts_pnlo=flux_area_avg(data,areaarc).*area_sum_m2_arc.*g2Pg;
@@ -168,8 +168,30 @@ prod_temp_ts_pnlo=flux_area_avg(data,areatemp).*area_sum_m2_temp.*g2Pg;
 prod_trop_ts_pnlo=flux_area_avg(data,areatrop).*area_sum_m2_trop.*g2Pg;
 prod_t23south_ts_pnlo=flux_area_avg(data,areat23south).*area_sum_m2_t23south.*g2Pg;
 prod_t23north_ts_pnlo=flux_area_avg(data,areat23north).*area_sum_m2_t23north.*g2Pg;
+%%
+j=6;
+ncf1=sprintf('%s/%s/%s',mother_dir,child_dirs{j},stem1);
+ncf2=sprintf('%s/%s/%s',mother_dir,child_dirs{j},stem2);
 
-save('cwd_analysis_globe.mat',...
+data=netcdf(ncf1,'var',var_cwd);
+cwd_glb_ts_def=flux_area_avg(data,area).*area_sum_m2_glb.*g2Pg;
+cwd_arc_ts_def=flux_area_avg(data,areaarc).*area_sum_m2_arc.*g2Pg;
+cwd_temp_ts_def=flux_area_avg(data,areatemp).*area_sum_m2_temp.*g2Pg;
+cwd_trop_ts_def=flux_area_avg(data,areatrop).*area_sum_m2_trop.*g2Pg;
+cwd_t23south_ts_def=flux_area_avg(data,areat23south).*area_sum_m2_t23south.*g2Pg;
+cwd_t23north_ts_def=flux_area_avg(data,areat23north).*area_sum_m2_t23north.*g2Pg;
+
+data=netcdf(ncf1,'var',var_prod)+netcdf(ncf2,'var',var_seed);
+
+prod_glb_ts_def=flux_area_avg(data,area).*area_sum_m2_glb.*g2Pg;
+prod_arc_ts_def=flux_area_avg(data,areaarc).*area_sum_m2_arc.*g2Pg;
+prod_temp_ts_def=flux_area_avg(data,areatemp).*area_sum_m2_temp.*g2Pg;
+prod_trop_ts_def=flux_area_avg(data,areatrop).*area_sum_m2_trop.*g2Pg;
+prod_t23south_ts_def=flux_area_avg(data,areat23south).*area_sum_m2_t23south.*g2Pg;
+prod_t23north_ts_def=flux_area_avg(data,areat23north).*area_sum_m2_t23north.*g2Pg;
+
+%%
+save('histcwd_analysis_globe.mat',...
     'cwd_glb_ts_pnlo','cwd_arc_ts_pnlo','cwd_temp_ts_pnlo','cwd_trop_ts_pnlo','cwd_t23south_ts_pnlo','cwd_t23north_ts_pnlo',...
     'prod_glb_ts_pnlo','prod_arc_ts_pnlo','prod_temp_ts_pnlo','prod_trop_ts_pnlo','prod_t23south_ts_pnlo','prod_t23north_ts_pnlo',...    
     'cwd_glb_ts_pnlic','cwd_arc_ts_pnlic','cwd_temp_ts_pnlic','cwd_trop_ts_pnlic','cwd_t23south_ts_pnlic','cwd_t23north_ts_pnlic',...
@@ -179,15 +201,17 @@ save('cwd_analysis_globe.mat',...
     'cwd_glb_ts_mnl','cwd_arc_ts_mnl','cwd_temp_ts_mnl','cwd_trop_ts_mnl','cwd_t23south_ts_mnl','cwd_t23north_ts_mnl',...
     'prod_glb_ts_mnl','prod_arc_ts_mnl','prod_temp_ts_mnl','prod_trop_ts_mnl','prod_t23south_ts_mnl','prod_t23north_ts_mnl',...       
     'cwd_glb_ts_nul','cwd_arc_ts_nul','cwd_temp_ts_nul','cwd_trop_ts_nul','cwd_t23south_ts_nul','cwd_t23north_ts_nul',...
-    'prod_glb_ts_nul','prod_arc_ts_nul','prod_temp_ts_nul','prod_trop_ts_nul','prod_t23south_ts_nul','prod_t23north_ts_nul');       
+    'prod_glb_ts_nul','prod_arc_ts_nul','prod_temp_ts_nul','prod_trop_ts_nul','prod_t23south_ts_nul','prod_t23north_ts_nul',...
+    'cwd_glb_ts_def','cwd_arc_ts_def','cwd_temp_ts_def','cwd_trop_ts_def','cwd_t23south_ts_def','cwd_t23north_ts_def',...
+    'prod_glb_ts_def','prod_arc_ts_def','prod_temp_ts_def','prod_trop_ts_def','prod_t23south_ts_def','prod_t23north_ts_def');       
     
 %%
 else
     
-    load('cwd_analysis_globe.mat');
+    load('histcwd_analysis_globe.mat');
 end
 
-time=2001+(1:length(cwd_glb_ts_mnl))./12;
+time=1850+(1:length(cwd_glb_ts_mnl))./12;
 
 %%
 fig=figure(1);
@@ -199,6 +223,8 @@ plot(time,cwd_glb_ts_nul-cwd_glb_ts_nul(1),'color',clr{2},'LineWidth',2);
 plot(time,cwd_glb_ts_pnl-cwd_glb_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,cwd_glb_ts_pnlic-cwd_glb_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,cwd_glb_ts_pnlo-cwd_glb_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,cwd_glb_ts_def-cwd_glb_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
 title('Globe','FontSize',14);
 
@@ -211,6 +237,8 @@ plot(time,cwd_t23south_ts_nul-cwd_t23south_ts_nul(1),'color',clr{2},'LineWidth',
 plot(time,cwd_t23south_ts_pnl-cwd_t23south_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,cwd_t23south_ts_pnlic-cwd_t23south_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,cwd_t23south_ts_pnlo-cwd_t23south_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,cwd_t23south_ts_def-cwd_t23south_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
 title('South of 23.2\circS','FontSize',14);
 
@@ -222,9 +250,11 @@ plot(time,cwd_t23north_ts_nul-cwd_t23north_ts_nul(1),'color',clr{2},'LineWidth',
 plot(time,cwd_t23north_ts_pnl-cwd_t23north_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,cwd_t23north_ts_pnlic-cwd_t23north_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,cwd_t23north_ts_pnlo-cwd_t23north_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,cwd_t23north_ts_def-cwd_t23north_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
-set(ax,'Xlim',[2000,2301]);
-set(ax,'XTick',(2000:50:2300));
+set(ax,'Xlim',[1850,2000]);
+set(ax,'XTick',(1850:50:2000));
 title('North of 23.2\circS','FontSize',14);
 
 
@@ -234,11 +264,13 @@ plot(time,prod_glb_ts_nul-prod_glb_ts_nul(1),'color',clr{2},'LineWidth',2);
 plot(time,prod_glb_ts_pnl-prod_glb_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,prod_glb_ts_pnlic-prod_glb_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,prod_glb_ts_pnlo-prod_glb_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,prod_glb_ts_def-prod_glb_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
 
 xlabel('Year','FontSize',14);
 ylabel('Total PROD+Seed carbon (Pg C)','FontSize',14);
-legend('MNL','NUL','PNL','PNLIC','PNLO');
+legend('MNL','NUL','PNL','PNLIC','PNLO','Default');
 
 set(fig,'CurrentAxes',ax(5));
 plot(time,prod_t23south_ts_mnl-prod_t23south_ts_mnl(1),'color',clr{1},'LineWidth',2);hold on;
@@ -246,6 +278,8 @@ plot(time,prod_t23south_ts_nul-prod_t23south_ts_nul(1),'color',clr{2},'LineWidth
 plot(time,prod_t23south_ts_pnl-prod_t23south_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,prod_t23south_ts_pnlic-prod_t23south_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,prod_t23south_ts_pnlo-prod_t23south_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,prod_t23south_ts_def-prod_t23south_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
 xlabel('Year','FontSize',14);
 
@@ -256,9 +290,11 @@ plot(time,prod_t23north_ts_nul-prod_t23north_ts_nul(1),'color',clr{2},'LineWidth
 plot(time,prod_t23north_ts_pnl-prod_t23north_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,prod_t23north_ts_pnlic-prod_t23north_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,prod_t23north_ts_pnlo-prod_t23north_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,prod_t23north_ts_def-prod_t23north_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
-set(ax,'Xlim',[2000,2301]);
-set(ax,'XTick',(2000:50:2300));
+set(ax,'Xlim',[1850,2000]);
+set(ax,'XTick',(1850:50:2000));
 xlabel('Year','FontSize',14);
 
 
@@ -284,6 +320,8 @@ plot(time,cwd_temp_ts_nul-cwd_temp_ts_nul(1),'color',clr{2},'LineWidth',2);
 plot(time,cwd_temp_ts_pnl-cwd_temp_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,cwd_temp_ts_pnlic-cwd_temp_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,cwd_temp_ts_pnlo-cwd_temp_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,cwd_temp_ts_def-cwd_temp_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
 title('North temperate','FontSize',14);
 
@@ -295,6 +333,8 @@ plot(time,cwd_trop_ts_nul-cwd_trop_ts_nul(1),'color',clr{2},'LineWidth',2);
 plot(time,cwd_trop_ts_pnl-cwd_trop_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,cwd_trop_ts_pnlic-cwd_trop_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,cwd_trop_ts_pnlo-cwd_trop_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,cwd_trop_ts_def-cwd_trop_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
 title('Tropics','FontSize',14);
 
@@ -304,6 +344,8 @@ plot(time,cwd_arc_ts_nul-cwd_arc_ts_nul(1),'color',clr{2},'LineWidth',2);
 plot(time,cwd_arc_ts_pnl-cwd_arc_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,cwd_arc_ts_pnlic-cwd_arc_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,cwd_arc_ts_pnlo-cwd_arc_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,cwd_arc_ts_def-cwd_arc_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
 set(ax,'Xlim',[2000,2301]);
 set(ax,'XTick',(2000:50:2300));
@@ -316,10 +358,12 @@ plot(time,prod_temp_ts_nul-prod_temp_ts_nul(1),'color',clr{2},'LineWidth',2);
 plot(time,prod_temp_ts_pnl-prod_temp_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,prod_temp_ts_pnlic-prod_temp_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,prod_temp_ts_pnlo-prod_temp_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,prod_temp_ts_def-prod_temp_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
 xlabel('Year','FontSize',14);
 ylabel('Total PROD+Seed carbon (Pg C)','FontSize',14);
-legend('MNL','NUL','PNL','PNLIC','PNLO');
+legend('MNL','NUL','PNL','PNLIC','PNLO','Default');
 
 set(fig,'CurrentAxes',ax(5));
 plot(time,prod_trop_ts_mnl-prod_trop_ts_mnl(1),'color',clr{1},'LineWidth',2);hold on;
@@ -327,6 +371,8 @@ plot(time,prod_trop_ts_nul-prod_trop_ts_nul(1),'color',clr{2},'LineWidth',2);
 plot(time,prod_trop_ts_pnl-prod_trop_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,prod_trop_ts_pnlic-prod_trop_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,prod_trop_ts_pnlo-prod_trop_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,prod_trop_ts_def-prod_trop_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
 xlabel('Year','FontSize',14);
 
@@ -336,9 +382,11 @@ plot(time,prod_arc_ts_nul-prod_arc_ts_nul(1),'color',clr{2},'LineWidth',2);
 plot(time,prod_arc_ts_pnl-prod_arc_ts_pnl(1),'color',clr{3},'LineWidth',2);
 plot(time,prod_arc_ts_pnlic-prod_arc_ts_pnlic(1),'color',clr{4},'LineWidth',2);
 plot(time,prod_arc_ts_pnlo-prod_arc_ts_pnlo(1),'color',clr{5},'LineWidth',2);
+plot(time,prod_arc_ts_def-prod_arc_ts_def(1),'color',purple,'LineWidth',2);
+
 set(gca,'FontSize',14);
-set(ax,'Xlim',[2000,2301]);
-set(ax,'XTick',(2000:50:2300));
+set(ax,'Xlim',[1850,2000]);
+set(ax,'XTick',(1850:50:2000));
 
 xlabel('Year','FontSize',14);
 
@@ -352,37 +400,4 @@ put_tag(fig,ax(5),[.05,.95],'(b2)',14);
 put_tag(fig,ax(6),[.05,.95],'(c2)',14);
 
 set(fig,'color','w');
-
-fprintf('cwd distribution\n');
-fprintf('tropic temperate south_23 arctic\n');
-fprintf('mnl\n');
-fprintf('%-20.10f, %-20.10f, %-20.10f, %-20.10f\n',...
-    (cwd_trop_ts_mnl(end)-cwd_trop_ts_mnl(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_temp_ts_mnl(end)-cwd_temp_ts_mnl(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_t23south_ts_mnl(end)-cwd_t23south_ts_mnl(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_arc_ts_mnl(end)-cwd_arc_ts_mnl(1))/area_sum_m2_arc/g2Pg);
-fprintf('nul\n');
-fprintf('%-20.10f, %-20.10f, %-20.10f, %-20.10f\n',...
-    (cwd_trop_ts_nul(end)-cwd_trop_ts_nul(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_temp_ts_nul(end)-cwd_temp_ts_nul(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_t23south_ts_nul(end)-cwd_t23south_ts_nul(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_arc_ts_nul(end)-cwd_arc_ts_nul(1))/area_sum_m2_arc/g2Pg);
-fprintf('pnl\n');
-fprintf('%-20.10f, %-20.10f, %-20.10f, %-20.10f\n',...
-    (cwd_trop_ts_pnl(end)-cwd_trop_ts_pnl(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_temp_ts_pnl(end)-cwd_temp_ts_pnl(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_t23south_ts_pnl(end)-cwd_t23south_ts_pnl(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_arc_ts_pnl(end)-cwd_arc_ts_pnl(1))/area_sum_m2_arc/g2Pg);
-fprintf('pnlo\n');
-fprintf('%-20.10f, %-20.10f, %-20.10f, %-20.10f\n',...
-    (cwd_trop_ts_pnlo(end)-cwd_trop_ts_pnlo(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_temp_ts_pnlo(end)-cwd_temp_ts_pnlo(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_t23south_ts_pnlo(end)-cwd_t23south_ts_pnlo(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_arc_ts_pnlo(end)-cwd_arc_ts_pnlo(1))/area_sum_m2_arc/g2Pg);
-fprintf('pnlic\n');
-fprintf('%-20.10f, %-20.10f, %-20.10f, %-20.10f\n',...
-    (cwd_trop_ts_pnlic(end)-cwd_trop_ts_pnlic(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_temp_ts_pnlic(end)-cwd_temp_ts_pnlic(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_t23south_ts_pnlic(end)-cwd_t23south_ts_pnlic(1))/area_sum_m2_arc/g2Pg,...
-    (cwd_arc_ts_pnlic(end)-cwd_arc_ts_pnlic(1))/area_sum_m2_arc/g2Pg);
 

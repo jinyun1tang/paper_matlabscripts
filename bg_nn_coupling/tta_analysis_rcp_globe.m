@@ -1,7 +1,7 @@
 close all;
 clear all;
 clc;
-
+%This draws figure 2 and Figure 2 supp
 loadit=1;
 
 mother_dir='/Users/jinyuntang/work/data_collection/clm_output/bg_nn_coupling/RCP45';
@@ -570,3 +570,68 @@ put_tag(fig,ax(6),[.05,.95],'(c2)',14);
 put_tag(fig,ax(7),[.05,.95],'(a3)',14);
 put_tag(fig,ax(8),[.05,.95],'(b3)',14);
 put_tag(fig,ax(9),[.05,.95],'(c3)',14);
+
+close all
+
+fprintf('statistics 2006-2100\n');
+id1=60;  %time = 2006;
+id2=1188;%time = 2100;
+fprintf('%-20s %-20s %-20s\n','total_carbon', 'veg_carbon', 'soil_carbon');
+fprintf('mnl\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_mnl(id2)-colc_glb_ts_mnl(id1),...
+    vegc_glb_ts_mnl(id2)-vegc_glb_ts_mnl(id1),soic_glb_ts_mnl(id2)-soic_glb_ts_mnl(id1));
+fprintf('nul\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_nul(id2)-colc_glb_ts_nul(id1),...
+    vegc_glb_ts_nul(id2)-vegc_glb_ts_nul(id1),soic_glb_ts_nul(id2)-soic_glb_ts_nul(id1));
+fprintf('pnl\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_pnl(id2)-colc_glb_ts_pnl(id1),...
+    vegc_glb_ts_pnl(id2)-vegc_glb_ts_pnl(id1),soic_glb_ts_pnl(id2)-soic_glb_ts_pnl(id1));
+fprintf('pnlo\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_pnlo(id2)-colc_glb_ts_pnlo(id1),...
+    vegc_glb_ts_pnlo(id2)-vegc_glb_ts_pnlo(id1),soic_glb_ts_pnlo(id2)-soic_glb_ts_pnlo(id1));
+fprintf('pnlic\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_pnlic(id2)-colc_glb_ts_pnlic(id1),...
+    vegc_glb_ts_pnlic(id2)-vegc_glb_ts_pnlic(id1),soic_glb_ts_pnlic(id2)-soic_glb_ts_pnlic(id1));
+
+
+fprintf('statistics 2000-2300\n');
+id1=1;  %time = 2000;
+id2=3600;%time = 2300;
+fprintf('%-20s %-20s %-20s\n','total_carbon', 'veg_carbon', 'soil_carbon');
+fprintf('mnl\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_mnl(id2)-colc_glb_ts_mnl(id1),...
+    vegc_glb_ts_mnl(id2)-vegc_glb_ts_mnl(id1),soic_glb_ts_mnl(id2)-soic_glb_ts_mnl(id1));
+fprintf('nul\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_nul(id2)-colc_glb_ts_nul(id1),...
+    vegc_glb_ts_nul(id2)-vegc_glb_ts_nul(id1),soic_glb_ts_nul(id2)-soic_glb_ts_nul(id1));
+fprintf('pnl\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_pnl(id2)-colc_glb_ts_pnl(id1),...
+    vegc_glb_ts_pnl(id2)-vegc_glb_ts_pnl(id1),soic_glb_ts_pnl(id2)-soic_glb_ts_pnl(id1));
+fprintf('pnlo\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_pnlo(id2)-colc_glb_ts_pnlo(id1),...
+    vegc_glb_ts_pnlo(id2)-vegc_glb_ts_pnlo(id1),soic_glb_ts_pnlo(id2)-soic_glb_ts_pnlo(id1));
+fprintf('pnlic\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_pnlic(id2)-colc_glb_ts_pnlic(id1),...
+    vegc_glb_ts_pnlic(id2)-vegc_glb_ts_pnlic(id1),soic_glb_ts_pnlic(id2)-soic_glb_ts_pnlic(id1));
+
+
+fprintf('statistics 2000-2005\n');
+id1=1;  %time = 2006;
+id2=60;
+fprintf('%-20s %-20s %-20s\n','total_carbon', 'veg_carbon', 'soil_carbon');
+fprintf('mnl\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_mnl(id2)-colc_glb_ts_mnl(id1),...
+    vegc_glb_ts_mnl(id2)-vegc_glb_ts_mnl(id1),soic_glb_ts_mnl(id2)-soic_glb_ts_mnl(id1));
+fprintf('nul\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_nul(id2)-colc_glb_ts_nul(id1),...
+    vegc_glb_ts_nul(id2)-vegc_glb_ts_nul(id1),soic_glb_ts_nul(id2)-soic_glb_ts_nul(id1));
+fprintf('pnl\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_pnl(id2)-colc_glb_ts_pnl(id1),...
+    vegc_glb_ts_pnl(id2)-vegc_glb_ts_pnl(id1),soic_glb_ts_pnl(id2)-soic_glb_ts_pnl(id1));
+fprintf('pnlo\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_pnlo(id2)-colc_glb_ts_pnlo(id1),...
+    vegc_glb_ts_pnlo(id2)-vegc_glb_ts_pnlo(id1),soic_glb_ts_pnlo(id2)-soic_glb_ts_pnlo(id1));
+fprintf('pnlic\n');
+fprintf('%-20.8f %-20.8f %-20.8f\n',colc_glb_ts_pnlic(id2)-colc_glb_ts_pnlic(id1),...
+    vegc_glb_ts_pnlic(id2)-vegc_glb_ts_pnlic(id1),soic_glb_ts_pnlic(id2)-soic_glb_ts_pnlic(id1));
+

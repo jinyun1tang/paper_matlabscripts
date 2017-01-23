@@ -1,4 +1,4 @@
-function [gpp, ar, hr,  cdwt, cfire, cprod,som_hr,lit_hr]=getCbudget(indir,stem,year)
+function [gpp, ar, hr,  cdwt, cfire, cprod,som_hr,lit_hr,npp]=getCbudget(indir,stem,year)
 %return the fluxes (annual basis) for carbon budget
 %DWT_CLOSS: land use loss
 %cfire: COL_FIRE_CLOSS
@@ -8,6 +8,11 @@ wt=get_monw();window=12;
 var='GPP';
 dat1=get_var_nfiles(indir,stem,year,var);
 gpp=slidew_mean(dat1,window,wt);clear dat1;
+
+var='NPP';
+dat1=get_var_nfiles(indir,stem,year,var);
+npp=slidew_mean(dat1,window,wt);clear dat1;
+
 
 var='AR';
 dat1=get_var_nfiles(indir,stem,year,var);

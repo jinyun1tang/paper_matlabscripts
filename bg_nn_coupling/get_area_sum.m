@@ -6,7 +6,7 @@ km2m2 = 1.e6;
 
 id=area>0;
 
-area_sum_m2=sum(area(id))*km2m2;
+area_sum_m2=sum(double(area(id)))*double(km2m2);
 
 
 end
