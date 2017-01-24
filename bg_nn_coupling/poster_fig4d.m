@@ -454,18 +454,19 @@ set(fig,'color','w');
 fig=figure(1);
 set(fig,'unit','normalized','position',[.1,.1,.8,.85]);
 ax=multipanel(fig,3,3,[.1,.06],[.25,.25],[0.065,0.065]);
-
+fontsz=16;
 jpd=12;
 set(fig,'CurrentAxes',ax(1));
 plot(jump_vec(time,jpd),jump_vec(colc_glb_ts_mnl-colc_glb_ts_mnl(1),jpd),'color',clr{1},'LineWidth',2);hold on;
 plot(jump_vec(time,jpd),jump_vec(colc_glb_ts_nul-colc_glb_ts_nul(1),jpd),'color',clr{2},'LineWidth',2);
 plot(jump_vec(time,jpd),jump_vec(colc_glb_ts_pnl-colc_glb_ts_pnl(1),jpd),'color',clr{3},'LineWidth',2);
-plot(jump_vec(time,jpd),jump_vec(colc_glb_ts_pnlic-colc_glb_ts_pnlic(1),jpd),'color',clr{4},'LineWidth',2);
-plot(jump_vec(time,jpd),jump_vec(colc_glb_ts_pnlo-colc_glb_ts_pnlo(1),jpd),'color',clr{5},'LineWidth',2);
-set(gca,'FontSize',14);
-title('Globe','FontSize',14);
+%plot(jump_vec(time,jpd),jump_vec(colc_glb_ts_pnlic-colc_glb_ts_pnlic(1),jpd),'color',clr{4},'LineWidth',2);
+%plot(jump_vec(time,jpd),jump_vec(colc_glb_ts_pnlo-colc_glb_ts_pnlo(1),jpd),'color',clr{5},'LineWidth',2);
+set(gca,'FontSize',fontsz);
+xlabel('Year','FontSize',fontsz);
+title('Globe','FontSize',fontsz);
 
-ylabel('Total carbon (Pg C)','FontSize',14);
+ylabel('Total carbon (Pg C)','FontSize',fontsz);
 
 
 set(fig,'CurrentAxes',ax(2));
@@ -475,7 +476,7 @@ plot(jump_vec(time,jpd),jump_vec(colc_t23south_ts_pnl-colc_t23south_ts_pnl(1),jp
 plot(jump_vec(time,jpd),jump_vec(colc_t23south_ts_pnlic-colc_t23south_ts_pnlic(1),jpd),'color',clr{4},'LineWidth',2);
 plot(jump_vec(time,jpd),jump_vec(colc_t23south_ts_pnlo-colc_t23south_ts_pnlo(1),jpd),'color',clr{5},'LineWidth',2);
 set(gca,'FontSize',14);
-title('South of 23^\circS','FontSize',14);
+title('South of 23^\circS','FontSize',fontsz);
 
 
 
@@ -488,7 +489,7 @@ plot(jump_vec(time,jpd),jump_vec(colc_t23north_ts_pnlo-colc_t23north_ts_pnlo(1),
 set(gca,'FontSize',14);
 set(ax,'Xlim',[2000,2301]);
 set(ax,'XTick',(2000:50:2300));
-title('North of 23^\circS','FontSize',14);
+title('North of 23^\circS','FontSize',fontsz);
 
 
 
@@ -498,10 +499,10 @@ plot(jump_vec(time,jpd),jump_vec(vegc_glb_ts_nul-vegc_glb_ts_nul(1),jpd),'color'
 plot(jump_vec(time,jpd),jump_vec(vegc_glb_ts_pnl-vegc_glb_ts_pnl(1),jpd),'color',clr{3},'LineWidth',2);
 plot(jump_vec(time,jpd),jump_vec(vegc_glb_ts_pnlic-vegc_glb_ts_pnlic(1),jpd),'color',clr{4},'LineWidth',2);
 plot(jump_vec(time,jpd),jump_vec(vegc_glb_ts_pnlo-vegc_glb_ts_pnlo(1),jpd),'color',clr{5},'LineWidth',2);
-set(gca,'FontSize',14);
+set(gca,'FontSize',fontsz);
 
 
-ylabel('Total vegtation carbon (Pg C)','FontSize',14);
+ylabel('Total vegtation carbon (Pg C)','FontSize',fontsz);
 legend('MNL','NUL','PNL','PNLIC','PNLO');
 
 set(fig,'CurrentAxes',ax(5));
@@ -510,7 +511,7 @@ plot(jump_vec(time,jpd),jump_vec(vegc_t23south_ts_nul-vegc_t23south_ts_nul(1),jp
 plot(jump_vec(time,jpd),jump_vec(vegc_t23south_ts_pnl-vegc_t23south_ts_pnl(1),jpd),'color',clr{3},'LineWidth',2);
 plot(jump_vec(time,jpd),jump_vec(vegc_t23south_ts_pnlic-vegc_t23south_ts_pnlic(1),jpd),'color',clr{4},'LineWidth',2);
 plot(jump_vec(time,jpd),jump_vec(vegc_t23south_ts_pnlo-vegc_t23south_ts_pnlo(1),jpd),'color',clr{5},'LineWidth',2);
-set(gca,'FontSize',14);
+set(gca,'FontSize',fontsz);
 
 
 
@@ -532,8 +533,8 @@ plot(jump_vec(time,jpd),jump_vec(soic_glb_ts_pnl-soic_glb_ts_pnl(1),jpd),'color'
 plot(jump_vec(time,jpd),jump_vec(soic_glb_ts_pnlic-soic_glb_ts_pnlic(1),jpd),'color',clr{4},'LineWidth',2);
 plot(jump_vec(time,jpd),jump_vec(soic_glb_ts_pnlo-soic_glb_ts_pnlo(1),jpd),'color',clr{5},'LineWidth',2);
 set(gca,'FontSize',14);
-xlabel('Year','FontSize',14);
-ylabel('Total soil carbon (Pg C)','FontSize',14);
+xlabel('Year','FontSize',fontsz);
+ylabel('Total soil carbon (Pg C)','FontSize',fontsz);
 
 
 set(fig,'CurrentAxes',ax(8));
@@ -543,7 +544,7 @@ plot(jump_vec(time,jpd),jump_vec(soic_t23south_ts_pnl-soic_t23south_ts_pnl(1),jp
 plot(jump_vec(time,jpd),jump_vec(soic_t23south_ts_pnlic-soic_t23south_ts_pnlic(1),jpd),'color',clr{4},'LineWidth',2);
 plot(jump_vec(time,jpd),jump_vec(soic_t23south_ts_pnlo-soic_t23south_ts_pnlo(1),jpd),'color',clr{5},'LineWidth',2);
 set(gca,'FontSize',14);
-xlabel('Year','FontSize',14);
+xlabel('Year','FontSize',fontsz);
 
 
 set(fig,'CurrentAxes',ax(9));
@@ -552,14 +553,15 @@ plot(jump_vec(time,jpd),jump_vec(soic_t23north_ts_nul-soic_t23north_ts_nul(1),jp
 plot(jump_vec(time,jpd),jump_vec(soic_t23north_ts_pnl-soic_t23north_ts_pnl(1),jpd),'color',clr{3},'LineWidth',2);
 plot(jump_vec(time,jpd),jump_vec(soic_t23north_ts_pnlic-soic_t23north_ts_pnlic(1),jpd),'color',clr{4},'LineWidth',2);
 plot(jump_vec(time,jpd),jump_vec(soic_t23north_ts_pnlo-soic_t23north_ts_pnlo(1),jpd),'color',clr{5},'LineWidth',2);
-set(gca,'FontSize',14);
+set(gca,'FontSize',fontsz);
 set(ax,'Xlim',[2000,2301]);
 set(ax,'XTick',(2000:50:2300));
+set(ax,'FontSize',fontsz);
 
-xlabel('Year','FontSize',14);
+xlabel('Year','FontSize',fontsz);
 set(fig,'color','w');
 
-put_tag(fig,ax(1),[.05,.95],'(a1)',14);
+%put_tag(fig,ax(1),[.05,.95],'(a1)',14);
 put_tag(fig,ax(2),[.05,.95],'(b1)',14);
 put_tag(fig,ax(3),[.05,.95],'(c1)',14);
 
