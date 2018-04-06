@@ -22,8 +22,8 @@ sub_dirs={...
 sims={'clm3adt','clm3','cent','clm'};
 %ax = multipanel(fig,2,2,[.1,.1],[.4,.4],[.075,.05]);
     
-
-cc={'m','r','g','b'};
+fontsz=28;
+cc={'c','r','k','b'};
 is_load=1;
 if(is_load)
     load('nflxes.mat');
@@ -163,25 +163,25 @@ set(fig,'unit','normalized','position',[.1,.1,.8,.92]);
 ax = multipanel(fig,4,4,[.075,.05],[.18,.185],[.05,.065]);
 for jj = 1 : 4
     set(fig,'CurrentAxes',ax(jj));    
-    hh(1)=plot((1850:2000),f_nit11(:,jj).*tyear,cc{1},'LineWidth',1.5);      
+    hh(1)=plot((1850:2000),f_nit11(:,jj).*tyear,cc{1},'LineWidth',2);      
     hold on;
-    hh(2)=plot((1850:2000),f_nit21(:,jj).*tyear,cc{2},'LineWidth',1.5);      
-    hh(3)=plot((1850:2000),f_nit31(:,jj).*tyear,cc{3},'LineWidth',1.5);      
-    hh(4)=plot((1850:2000),f_nit41(:,jj).*tyear,cc{4},'LineWidth',1.5);
+    hh(2)=plot((1850:2000),f_nit21(:,jj).*tyear,cc{2},'LineWidth',2);      
+    hh(3)=plot((1850:2000),f_nit31(:,jj).*tyear,cc{3},'LineWidth',2);      
+    hh(4)=plot((1850:2000),f_nit41(:,jj).*tyear,cc{4},'LineWidth',2);
 
     set(fig,'CurrentAxes',ax(jj+4));
-    plot((1850:2000),f_nit_n2o11(:,jj).*tyear,cc{1},'LineWidth',1.5);      
+    plot((1850:2000),f_nit_n2o11(:,jj).*tyear,cc{1},'LineWidth',2);      
     hold on;
-    plot((1850:2000),f_nit_n2o21(:,jj).*tyear,cc{2},'LineWidth',1.5);      
-    plot((1850:2000),f_nit_n2o31(:,jj).*tyear,cc{3},'LineWidth',1.5);      
-    plot((1850:2000),f_nit_n2o41(:,jj).*tyear,cc{4},'LineWidth',1.5);
+    plot((1850:2000),f_nit_n2o21(:,jj).*tyear,cc{2},'LineWidth',2);      
+    plot((1850:2000),f_nit_n2o31(:,jj).*tyear,cc{3},'LineWidth',2);      
+    plot((1850:2000),f_nit_n2o41(:,jj).*tyear,cc{4},'LineWidth',2);
     
     set(fig,'CurrentAxes',ax(jj+8));      
-    plot((1850:2000),(f_den11(:,jj)+f_nit_n2o11(:,jj)).*tyear,cc{1},'LineWidth',1.5);    
+    plot((1850:2000),(f_den11(:,jj)+f_nit_n2o11(:,jj)).*tyear,cc{1},'LineWidth',2);    
     hold on;
-    plot((1850:2000),(f_den21(:,jj)+f_nit_n2o21(:,jj)).*tyear,cc{2},'LineWidth',1.5);    
-    plot((1850:2000),(f_den31(:,jj)+f_nit_n2o31(:,jj)).*tyear,cc{3},'LineWidth',1.5);    
-    plot((1850:2000),(f_den41(:,jj)+f_nit_n2o41(:,jj)).*tyear,cc{4},'LineWidth',1.5);    
+    plot((1850:2000),(f_den21(:,jj)+f_nit_n2o21(:,jj)).*tyear,cc{2},'LineWidth',2);    
+    plot((1850:2000),(f_den31(:,jj)+f_nit_n2o31(:,jj)).*tyear,cc{3},'LineWidth',2);    
+    plot((1850:2000),(f_den41(:,jj)+f_nit_n2o41(:,jj)).*tyear,cc{4},'LineWidth',2);    
 
     id=find(fno3_hydro11(:,jj)<0);
     if(~isempty(id))
@@ -200,34 +200,34 @@ for jj = 1 : 4
         fno3_hydro41(id,jj)=0.;
     end
     set(fig,'CurrentAxes',ax(jj+12));       
-    plot((1850:2000),fno3_hydro11(:,jj).*tyear,cc{1},'LineWidth',1.5);      
+    plot((1850:2000),fno3_hydro11(:,jj).*tyear,cc{1},'LineWidth',2);      
     hold on;
-    plot((1850:2000),fno3_hydro21(:,jj).*tyear,cc{2},'LineWidth',1.5);      
-    plot((1850:2000),fno3_hydro31(:,jj).*tyear,cc{3},'LineWidth',1.5);      
-    plot((1850:2000),fno3_hydro41(:,jj).*tyear,cc{4},'LineWidth',1.5);      
+    plot((1850:2000),fno3_hydro21(:,jj).*tyear,cc{2},'LineWidth',2);      
+    plot((1850:2000),fno3_hydro31(:,jj).*tyear,cc{3},'LineWidth',2);      
+    plot((1850:2000),fno3_hydro41(:,jj).*tyear,cc{4},'LineWidth',2);      
               
 end
-set(ax,'FontSize',14);
+set(ax,'FontSize',fontsz);
 set(ax(1:12),'XTickLabel','');
 set(fig,'CurrentAxes',ax(1));
-ylabel('Nitrification (gN m^-^2yr^-^1)'); 
+ylabel('Nitrification (gN m^-^2yr^-^1)','FontSize',fontsz); 
 set(fig,'CurrentAxes',ax(5));
-ylabel('Aerobic N_2O (gN m^-^2yr^-^1)'); 
+ylabel('Aerobic N_2O (gN m^-^2yr^-^1)','FontSize',fontsz); 
 set(fig,'CurrentAxes',ax(9));
-ylabel('Denitrification (gN m^-^2yr^-^1)'); 
+ylabel('Denitrification (gN m^-^2yr^-^1)','FontSize',fontsz); 
 set(fig,'CurrentAxes',ax(13));
-ylabel('Hydro loss (gN m^-^2yr^-^1)'); 
+ylabel('Hydro loss (gN m^-^2yr^-^1)','FontSize',fontsz); 
 
 for jj = 13:16
     set(fig,'CurrentAxes',ax(jj));
-    xlabel('Year');
+    xlabel('Year','FontSize',fontsz);
 end
 sites={'(a1)','(b1)','(c1)','(d1)',...
     '(a2)','(b2)','(c2)','(d2)',...
     '(a3)','(b3)','(c3)','(d3)',...
     '(a4)','(b4)','(c4)','(d4)'};
 for jj = 1 : 16
-    put_tag(fig,ax(jj),[.025,.93],sites{jj},14);
+    put_tag(fig,ax(jj),[.025,.93],sites{jj},fontsz);
 end
 
 legend(hh(4:-1:1),'MNL','NUL','PNL','PNL-adapt');
@@ -251,31 +251,31 @@ nloss4=cumsum([f_nit_n2o41;f_nit_n2o42]+[f_den41;f_den42]+[fno3_hydro41;fno3_hyd
 
 for jj = 1 : 4
     set(fig,'CurrentAxes',ax(jj));    
-    hh(1)=plot((1850:2300),nfix1(:,jj).*tyear,cc{1},'LineWidth',1.5);      
+    hh(1)=plot((1850:2300),nfix1(:,jj).*tyear,cc{1},'LineWidth',2);      
     hold on;
-    hh(2)=plot((1850:2300),nfix2(:,jj).*tyear,cc{2},'LineWidth',1.5);      
-    hh(3)=plot((1850:2300),nfix3(:,jj).*tyear,cc{3},'LineWidth',1.5);      
-    hh(4)=plot((1850:2300),nfix4(:,jj).*tyear,cc{4},'LineWidth',1.5);
+    hh(2)=plot((1850:2300),nfix2(:,jj).*tyear,cc{2},'LineWidth',2);      
+    hh(3)=plot((1850:2300),nfix3(:,jj).*tyear,cc{3},'LineWidth',2);      
+    hh(4)=plot((1850:2300),nfix4(:,jj).*tyear,cc{4},'LineWidth',2);
     
     
     
     set(fig,'CurrentAxes',ax(jj+4));    
-    plot((1850:2300),nloss1(:,jj).*tyear,cc{1},'LineWidth',1.5);      
+    plot((1850:2300),nloss1(:,jj).*tyear,cc{1},'LineWidth',2);      
     hold on;
-    plot((1850:2300),nloss2(:,jj).*tyear,cc{2},'LineWidth',1.5);      
-    plot((1850:2300),nloss3(:,jj).*tyear,cc{3},'LineWidth',1.5);      
-    plot((1850:2300),nloss4(:,jj).*tyear,cc{4},'LineWidth',1.5);    
+    plot((1850:2300),nloss2(:,jj).*tyear,cc{2},'LineWidth',2);      
+    plot((1850:2300),nloss3(:,jj).*tyear,cc{3},'LineWidth',2);      
+    plot((1850:2300),nloss4(:,jj).*tyear,cc{4},'LineWidth',2);    
 end
 set(ax,'Xlim',[1850,2300]);
 legend(hh(4:-1:1),'MNL','NUL','PNL','PNL-adapt');
 set(fig,'Color','w');
 
-set(ax,'FontSize',14);
+set(ax,'FontSize',fontsz);
 set(ax(1:4),'XTickLabel','');
 
 for jj = 5:8
     set(fig,'CurrentAxes',ax(jj));
-    xlabel('Year');
+    xlabel('Year','FontSize',fontsz);
 end
 
 
@@ -285,13 +285,13 @@ sites={'(a1)(74.67^\circW,40.6^\circN)','(b1)(26.22^\circE,67.7^\circN)',...
     '(c2)(50.02^\circW,4.88^\circS)','(d2)(51.5^\circW,30.0^\circS)'};
 
 for jj = 1 : 8
-    put_tag(fig,ax(jj),[.025,.93],sites{jj},14);
+    put_tag(fig,ax(jj),[.025,.93],sites{jj},fontsz);
 end
 
 set(fig,'CurrentAxes',ax(1));
-ylabel('Cumulative ecosystem N input (gN m^-^2)'); 
+ylabel('Cumulative ecosystem N input (gN m^-^2)','FontSize',fontsz); 
 set(fig,'CurrentAxes',ax(5));
-ylabel('Cumulative ecosystem N loss (gN m^-^2)'); 
+ylabel('Cumulative ecosystem N loss (gN m^-^2)','FontSize',fontsz); 
 
 
 
@@ -310,20 +310,20 @@ set(fig,'unit','normalized','position',[.1,.1,.8,.62]);
 ax = multipanel(fig,2,4,[.075,.075],[.18,.4],[.05,.065]);
 for jj = 1 : 4
     set(fig,'CurrentAxes',ax(jj));    
-    hh(1)=plot((1850:2300),f_nit1(:,jj).*tyear,cc{1},'LineWidth',1.5);      
+    hh(1)=plot((1850:2300),f_nit1(:,jj).*tyear,cc{1},'LineWidth',2);      
     hold on;
-    hh(2)=plot((1850:2300),f_nit2(:,jj).*tyear,cc{2},'LineWidth',1.5);      
-    hh(3)=plot((1850:2300),f_nit3(:,jj).*tyear,cc{3},'LineWidth',1.5);      
-    hh(4)=plot((1850:2300),f_nit4(:,jj).*tyear,cc{4},'LineWidth',1.5);
+    hh(2)=plot((1850:2300),f_nit2(:,jj).*tyear,cc{2},'LineWidth',2);      
+    hh(3)=plot((1850:2300),f_nit3(:,jj).*tyear,cc{3},'LineWidth',2);      
+    hh(4)=plot((1850:2300),f_nit4(:,jj).*tyear,cc{4},'LineWidth',2);
 
     set(fig,'CurrentAxes',ax(jj+4));
 
     
-    plot((1850:2300),f_den1(:,jj).*tyear,cc{1},'LineWidth',1.5);    
+    plot((1850:2300),f_den1(:,jj).*tyear,cc{1},'LineWidth',2);    
     hold on;
-    plot((1850:2300),f_den2(:,jj).*tyear,cc{2},'LineWidth',1.5);    
-    plot((1850:2300),f_den3(:,jj).*tyear,cc{3},'LineWidth',1.5);    
-    plot((1850:2300),f_den4(:,jj).*tyear,cc{4},'LineWidth',1.5);    
+    plot((1850:2300),f_den2(:,jj).*tyear,cc{2},'LineWidth',2);    
+    plot((1850:2300),f_den3(:,jj).*tyear,cc{3},'LineWidth',2);    
+    plot((1850:2300),f_den4(:,jj).*tyear,cc{4},'LineWidth',2);    
                    
 end
 
@@ -331,19 +331,19 @@ set(ax,'Xlim',[1850,2300]);
 legend(hh(4:-1:1),'MNL','NUL','PNL','PNL-adapt');
 set(fig,'Color','w');
 
-set(ax,'FontSize',14);
+set(ax,'FontSize',fontsz);
 set(ax(1:4),'XTickLabel','');
 
 for jj = 5:8
     set(fig,'CurrentAxes',ax(jj));
-    xlabel('Year');
+    xlabel('Year','FontSize',fontsz);
 end
 
 for jj = 1 : 8
-    put_tag(fig,ax(jj),[.025,.93],sites{jj},14);
+    put_tag(fig,ax(jj),[.025,.93],sites{jj},fontsz);
 end
 
 set(fig,'CurrentAxes',ax(1));
-ylabel('Cumulative nitrification (gN m^-^2)'); 
+ylabel('Cumulative nitrification (gN m^-^2)','FontSize',fontsz); 
 set(fig,'CurrentAxes',ax(5));
-ylabel('Cumulative denitrification (gN m^-^2)'); 
+ylabel('Cumulative denitrification (gN m^-^2)','FontSize',fontsz); 

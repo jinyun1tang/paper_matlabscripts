@@ -17,7 +17,7 @@ sub_dirs={...
 
 %fig=figure;
 %set(fig,'unit','normalized','position',[.1,.1,.6,.9]);
-
+fontsz=28;
 sims={'clm3adt','clm3','cent','clm'};
 %ax = multipanel(fig,2,2,[.1,.1],[.4,.4],[.075,.05]);
     
@@ -180,15 +180,15 @@ for k = 1 : 4
 end
 txt={'(a)(74.67^\circW,40.6^\circN)','(b)(26.22^\circE,67.7^\circN)',...
     '(c)(50.02^\circW,4.88^\circS)','(d)(51.5^\circW,30.0^\circS)'};
-set(ax,'FontSize',14,'Xlim',[1850,2000]);
+set(ax,'FontSize',fontsz,'Xlim',[1850,2000]);
 set(fig,'Color','w');
 for k = 1 : 4        
     set(fig,'CurrentAxes',ax(k));
-    xlabel('Year','FontSize',14);
-    ylabel('HR (g C m^-^2yr^-^1)','FontSize',14);
+    xlabel('Year','FontSize',fontsz);
+    ylabel('HR (g C m^-^2yr^-^1)','FontSize',fontsz);
     %ylabel('Total vegetation carbon (g C m^-^2)','FontSize',14);
     %ylabel('Total vegetation nitrogen (g N m^-^2)','FontSize',14);    
-    put_tag(fig,ax(k),[.05,.95],txt{k},14);
+    put_tag(fig,ax(k),[.05,.95],txt{k},fontsz);
 end
 
 legend(fh(4:-1:1),'MNL','NUL','PNL','PNL-adapt');
@@ -216,15 +216,15 @@ for k = 1 : 4
 end
 txt={'(a)(74.67^\circW,40.6^\circN)','(b)(26.22^\circE,67.7^\circN)',...
     '(c)(50.02^\circW,4.88^\circS)','(d)(51.5^\circW,30.0^\circS)'};
-set(ax,'FontSize',14,'Xlim',[1850,2000]);
+set(ax,'FontSize',fontsz,'Xlim',[1850,2000]);
 set(fig,'Color','w');
 for k = 1 : 4        
     set(fig,'CurrentAxes',ax(k));
-    xlabel('Year','FontSize',14);
-    ylabel('NPP (g C m^-^2yr^-^1)','FontSize',14);
+    xlabel('Year','FontSize',fontsz);
+    ylabel('NPP (g C m^-^2yr^-^1)','FontSize',fontsz);
     %ylabel('Total vegetation carbon (g C m^-^2)','FontSize',14);
     %ylabel('Total vegetation nitrogen (g N m^-^2)','FontSize',14);    
-    put_tag(fig,ax(k),[.05,.95],txt{k},14);
+    put_tag(fig,ax(k),[.05,.95],txt{k},fontsz);
 end
 
 legend(fh(4:-1:1),'MNL','NUL','PNL','PNL-adapt');
@@ -248,19 +248,19 @@ npp4=cumsum([npp41;npp42],1);hr4=cumsum([hr41;hr42],1);
 
 for jj = 1 : 4
     set(fig,'CurrentAxes',ax(jj));    
-    hh(1)=plot((1850:2300),(npp1(:,jj)-npp4(:,jj)).*tyear,cc{1},'LineWidth',1.5);      
+    hh(1)=plot((1850:2300),(npp1(:,jj)-npp4(:,jj)).*tyear,cc{1},'LineWidth',2);      
     hold on;
-    hh(2)=plot((1850:2300),(npp2(:,jj)-npp4(:,jj)).*tyear,cc{2},'LineWidth',1.5);      
-    hh(3)=plot((1850:2300),(npp3(:,jj)-npp4(:,jj)).*tyear,cc{3},'LineWidth',1.5);      
+    hh(2)=plot((1850:2300),(npp2(:,jj)-npp4(:,jj)).*tyear,cc{2},'LineWidth',2);      
+    hh(3)=plot((1850:2300),(npp3(:,jj)-npp4(:,jj)).*tyear,cc{3},'LineWidth',2);      
 
     
     
     
     set(fig,'CurrentAxes',ax(jj+4));    
-    plot((1850:2300),(hr1(:,jj)-hr4(:,jj)).*tyear,cc{1},'LineWidth',1.5);      
+    plot((1850:2300),(hr1(:,jj)-hr4(:,jj)).*tyear,cc{1},'LineWidth',2);      
     hold on;
-    plot((1850:2300),(hr2(:,jj)-hr4(:,jj)).*tyear,cc{2},'LineWidth',1.5);      
-    plot((1850:2300),(hr3(:,jj)-hr4(:,jj)).*tyear,cc{3},'LineWidth',1.5);      
+    plot((1850:2300),(hr2(:,jj)-hr4(:,jj)).*tyear,cc{2},'LineWidth',2);      
+    plot((1850:2300),(hr3(:,jj)-hr4(:,jj)).*tyear,cc{3},'LineWidth',2);      
   
 end
 
@@ -268,12 +268,12 @@ set(ax,'Xlim',[1850,2300]);
 legend(hh(3:-1:1),'NULmMNL','PNLmMNL','PNL-adaptmMNL');
 set(fig,'Color','w');
 
-set(ax,'FontSize',14);
+set(ax,'FontSize',fontsz);
 set(ax(1:4),'XTickLabel','');
 
 for jj = 5:8
     set(fig,'CurrentAxes',ax(jj));
-    xlabel('Year');
+    xlabel('Year','FontSize',fontsz);
 end
 
 
@@ -283,11 +283,11 @@ sites={'(a1)(74.67^\circW,40.6^\circN)','(b1)(26.22^\circE,67.7^\circN)',...
     '(c2)(50.02^\circW,4.88^\circS)','(d2)(51.5^\circW,30.0^\circS)'};
 
 for jj = 1 : 8
-    put_tag(fig,ax(jj),[.025,.93],sites{jj},14);
+    put_tag(fig,ax(jj),[.025,.93],sites{jj},fontsz);
 end
 
 set(fig,'CurrentAxes',ax(1));
-ylabel('\Delta Cumulative NPP (gC m^-^2)'); 
+ylabel('\Delta Cumulative NPP (gC m^-^2)','FontSize',fontsz); 
 set(fig,'CurrentAxes',ax(5));
-ylabel('\Delta Cumulative HR (gC m^-^2)'); 
+ylabel('\Delta Cumulative HR (gC m^-^2)','FontSize',fontsz); 
 
