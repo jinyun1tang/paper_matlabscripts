@@ -1,28 +1,40 @@
-close all;
-clear all;
-clc;
+function [obs,cres1,cres2,q10b_pct,q10f_pct,q10s_pct]=resomsubincub_exp2p(obsf,do_plot)
+if(nargin==1)
+    do_plot=0;
+end
+%Ms=1800;
 
+%incubator=get_incubation(Ms,xloc);
+obs=getobs(obsf);
 
 Extra.id_f1=1;
-Extra.id_k1=2;
-Extra.id_k2=3;
+Extra.id_k1_tl=2;
+Extra.id_k2_tl=3;
+Extra.id_k1_th=4;
+Extra.id_k2_th=5;
+
 Extra.ctot=1.0;
-Extra.t=(0:2:600)+0.5;
-x=ones(1,3);
+Extra.tl=obs.days10C;
+Extra.th=obs.days20C;
+
 
 Extra.f1_0=5.76e-2;
 Extra.k1_0=8.68e-3;
 Extra.k2_0=0.74e-4;
 %generate synthetic measurements
-Extra.obs_csh=twopool_modelwoc(x,Extra).*(ones(size(Extra.t))+...
-    0.01.*randn(size(Extra.t)));
+%Extra.err_tl=incubator.err10C.*randn(size(Extra.t));
+%Extra.err_th=interp1(Extra.th,incubator.err20C,Extra.tl).*randn(size(Extra.t));
+
+Extra.err_tl=obs.err10C;
+Extra.err_th=obs.err20C;
+
+Extra.obs_csh_tl=obs.obs10C;
+Extra.obs_csh_th=obs.obs20C;
 
 load_module('DREAM_ZS');
-x0(Extra.id_f1)=0.2;
-x0(Extra.id_k1)=1.3;
-x0(Extra.id_k2)=0.8;
+
 % Recommended parameter settings
-MCMCPar.seq = 6;                        % Number of Markov chains / sequences (for high dimensional and highly nonlinear problems, larger values work beter!!)
+MCMCPar.seq = 10;                       % Number of Markov chains / sequences (for high dimensional and highly nonlinear problems, larger values work beter!!)
 MCMCPar.DEpairs = 1;                    % Number of chain pairs to generate candidate points
 MCMCPar.nCR = 3;                        % Number of crossover values used
 MCMCPar.k = 10;                         % Thinning parameter for appending X to Z
@@ -39,15 +51,17 @@ MCMCPar.ABC = 'No';                     % Approximate Bayesian Computation or No
 
 
 % Application specific parameter settings
-MCMCPar.n = 3;                         % Dimension of the problem (number of parameters to be estimated)
-MCMCPar.ndraw = 50000;                  % Maximum number of function evaluations
+MCMCPar.n = 5;                         % Dimension of the problem (number of parameters to be estimated)
+MCMCPar.ndraw = 200000;                  % Maximum number of function evaluations
 MCMCPar.T = 1;                          % Each Tth sample is collected in the chains
 MCMCPar.prior = 'COV';                  % Latin Hypercube sampling (options, "LHS", "COV" and "PRIOR")
 MCMCPar.BoundHandling = 'None';         % Boundary handling (options, "Reflect", "Bound", "Fold", and "None");
+MCMCPar.BoundHandling = 'Bound';      % Boundary handling (options, "Reflect", "Bound", "Fold", and "None");
+
 MCMCPar.lik = 4;                        % Define the likelihood function --> log-density from model
 
 % Define modelName
-ModelName = 'lktwopool_modelwoc';
+ModelName = 'lktwopool_modelwoc_i2';
 
 % Provide information to do initial sampling ("COV")
 MCMCPar.mu = zeros(1,MCMCPar.n);        % Provide mean of initial sample
@@ -58,19 +72,73 @@ Extra.cov  = eye(MCMCPar.n); Extra.cov(1,1) = 100;      % Target covariance
 Extra.invC = inv(Extra.cov);                            % Inverse of target covariance
 Extra.b = 0.1;                                          % For the function
 
+ParRange.minn = zeros(1,MCMCPar.n)+1.e-3; ParRange.maxn = ParRange.minn+1.e2;
+
 % Run the DREAM_ZS algorithm   
-[Sequences,X,Z,output,fx] = dream_zs(MCMCPar,ModelName,Extra);
+[Sequences,~,Z,~,~] = dream_zs(MCMCPar,ModelName,Extra,ParRange);
 % Create a single matrix with values sampled by chains
 ParSet = genparset(Sequences,MCMCPar);
 
 eld=floor(size(Z,1)/3);
+id=(size(Z,1)-eld:size(Z,1));
+
+q10f=Z(id,4)./Z(id,2);
+q10s=Z(id,5)./Z(id,3);
+q10b=Extra.obs_csh_th./Extra.obs_csh_tl;
+
+for jj = 1 : numel(id)
+    xj=Z(id(jj),1:5);
+    [cumresp1,cumresp2]=twopool_modelwoc_i2(xj,Extra);
+    if(jj==1)
+        cres1=zeros(numel(id),numel(cumresp1));
+        cres2=cres1;
+    end
+    cres1(jj,:)=cumresp1;
+    cres2(jj,:)=cumresp2;
+end
+if(do_plot)
 fig=1;
-ax=multipanel(fig,2,2,[0.05,0.05],[0.4,0.375],[0.05,0.075]);
+ax=multipanel(fig,3,2,[0.05,0.075],[0.4,0.25],[0.05,0.075]);
 set_curAX(fig,ax(1));
-hist(Z(end-eld:end,1),50);title('f1','FontSize',14);
+histogram(Z(id,1).*Extra.f1_0,50);
+put_tag(fig,ax(1),[0.05,0.8],'f_1',14);
 set_curAX(fig,ax(2));
-hist(Z(end-eld:end,2),50);title('k_1','FontSize',14);
+histogram(Z(id,2).*Extra.k1_0,50);
+put_tag(fig,ax(2),[0.05,0.8],'k_1 (day^-^1) at 10^\circC',18);
+
 set_curAX(fig,ax(3));
-hist(Z(end-eld:end,3),50);title('k_2','FontSize',14);
+histogram(Z(id,3).*Extra.k2_0,50);
+put_tag(fig,ax(3),[0.05,0.8],'k_2 (day^-^1) at 10^\circC',18);
+
 set_curAX(fig,ax(4));
-hist(Z(end-eld:end,4),50);title('logp','FontSize',14);
+histogram(Z(id,4).*Extra.k1_0,50);
+put_tag(fig,ax(4),[0.05,0.8],'k_1 (day^-^1) at 20^\circC',18);
+
+set_curAX(fig,ax(5));
+histogram(Z(id,5).*Extra.k2_0,50);
+put_tag(fig,ax(5),[0.05,0.8],'k_2 (day^-^1) at 20^\circC',18);
+
+set_curAX(fig,ax(6));
+histogram(Z(id,6),50);
+put_tag(fig,ax(6),[0.05,0.8],'log likelihood',18);
+
+set(ax,'FontSize',14);
+fig=2;
+ax=multipanel(fig,1,2,[0.05,0.075],[0.4,0.85],[0.05,0.075]);
+set_curAX(fig,ax(1));
+histogram(q10f,50);
+put_tag(fig,ax(1),[0.05,0.85],'Active pool Q_1_0',18);
+set_curAX(fig,ax(2));
+histogram(q10s,50);
+put_tag(fig,ax(2),[0.05,0.85],'Slow pool Q_1_0',18);
+set(ax,'FontSize',14);
+end
+fprintf('q10b=%f (%f)\n',mean(q10b),std(q10b));
+fprintf('q10f=%f (%f)\n',mean(q10f),std(q10f));
+fprintf('q10s=%f (%f)\n',mean(q10s),std(q10s));
+
+q10b_pct=prctile(q10b,(0:100));
+q10f_pct=prctile(q10f,(0:100));
+q10s_pct=prctile(q10s,(0:100));
+end
+

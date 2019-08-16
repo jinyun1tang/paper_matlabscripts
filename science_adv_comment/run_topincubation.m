@@ -1,8 +1,8 @@
-function gname=run_incubation(Ms,xloc)
+function gname=run_topincubation(Ms,xloc)
 author_print();
 
 
-gname='topTref290_Ems25000_Esc25000_Yld0.38';
+gname='topTref290_Ems10000_Esc55000_Yld0.27';
 
 ofile1=sprintf('one_bug_model/mat_files/transtTone_box_deb_trantT_Ms%s_%s_opt1.mat',num2str(Ms(1)),gname);
 
@@ -10,6 +10,7 @@ load(ofile1);
 eval(['xf=',xloc,';']);
 ModelPar.xf=xf;
 Incubator.days=330;
+Incubator.xfloc=xloc;
 %incubate at 15 C
 Incubator.T=10+273.15;
 one_box_deb_constT_incubator_driver(ModelPar, Incubator);

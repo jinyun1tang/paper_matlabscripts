@@ -2,11 +2,11 @@ anchorfilename='/Users/jinyuntang/work/github/one_bug_model/license.txt';
 folder = fileparts(anchorfilename); 
 % Add that folder plus all subfolders to the path.
 addpath(genpath(folder));
-Ms=1800;
+Ms=575;
 
-gname=ensrun_incubation(Ms);
+gname=ensrun_incubationtop(Ms);
 
-incubator_middle=plot_ensincubation(gname,Ms);
+incubator_middle=plot_topensincubation(gname,Ms);
 
 figure;
 semilogy(incubator_middle.cumresp_T10C./incubator_middle.Ctot,'b');
