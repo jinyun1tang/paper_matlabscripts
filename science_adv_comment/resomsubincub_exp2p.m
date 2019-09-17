@@ -79,7 +79,7 @@ ParRange.minn = zeros(1,MCMCPar.n)+1.e-3; ParRange.maxn = ParRange.minn+1.e2;
 % Create a single matrix with values sampled by chains
 ParSet = genparset(Sequences,MCMCPar);
 
-eld=floor(size(Z,1)/3);
+eld=floor(size(Z,1)/4);
 id=(size(Z,1)-eld:size(Z,1));
 
 q10f=Z(id,4)./Z(id,2);
@@ -90,12 +90,14 @@ for jj = 1 : numel(id)
     xj=Z(id(jj),1:5);
     [cumresp1,cumresp2]=twopool_modelwoc_i2(xj,Extra);
     if(jj==1)
-        cres1=zeros(numel(id),numel(cumresp1));
-        cres2=cres1;
+        cres11=zeros(numel(id),numel(cumresp1));
+        cres22=cres11;
     end
-    cres1(jj,:)=cumresp1;
-    cres2(jj,:)=cumresp2;
+    cres11(jj,:)=cumresp1;
+    cres22(jj,:)=cumresp2;
 end
+cres1=prctile(cres11,(0.1:0.2:99.9),1);
+cres2=prctile(cres22,(0.1:0.2:99.9),1);
 if(do_plot)
 fig=1;
 ax=multipanel(fig,3,2,[0.05,0.075],[0.4,0.25],[0.05,0.075]);
@@ -133,10 +135,10 @@ histogram(q10s,50);
 put_tag(fig,ax(2),[0.05,0.85],'Slow pool Q_1_0',18);
 set(ax,'FontSize',14);
 end
-fprintf('q10b=%f (%f)\n',mean(q10b),std(q10b));
-fprintf('q10f=%f (%f)\n',mean(q10f),std(q10f));
-fprintf('q10s=%f (%f)\n',mean(q10s),std(q10s));
-
+fprintf('q10b=%f (%f) %f %f\n',mean(q10b),std(q10b),max(q10b),min(q10b));
+fprintf('q10f=%f (%f) %f %f\n',mean(q10f),std(q10f),max(q10f),min(q10f));
+fprintf('q10s=%f (%f) %f %f\n',mean(q10s),std(q10s),max(q10s),min(q10s));
+size(q10f)
 q10b_pct=prctile(q10b,(0:100));
 q10f_pct=prctile(q10f,(0:100));
 q10s_pct=prctile(q10s,(0:100));
