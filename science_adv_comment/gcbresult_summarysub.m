@@ -1,8 +1,11 @@
 close all;
 clear all;
-iofile1='top_summary_o100.mat';
-iofile2='top_summary_o75.mat';
-[obs,cres1,cres2,~,q10f_pct,q10s_pct]=resomsubincub_exp2p('obs100top',1);
+
+qrange=4;
+iofile1=sprintf('q%02d%s',qrange,'gcbbot_summary_o100.mat');
+iofile2=sprintf('q%02d%s',qrange,'gcbbot_summary_o75.mat');
+
+[obs,cres1,cres2,~,q10f,q10s,flab]=gcbresomsubincub_exp2p('obs100',1,qrange);
  
 load('Qin_topsoil.mat');
 load('Qin_subsoil.mat');
@@ -12,36 +15,37 @@ ax=multipanel(figh,2,2,[0.1,0.1],[0.4,0.35],[0.05,0.075]);
 
 set_curAX(figh,ax(2));
 
-h10c=errorbar(Qintop10C(:,1),Qintop10C(:,2).*100,Qintop10C(:,3).*100,'LineWidth',2);
+h10c=errorbar(Qinsub10C(:,1),Qinsub10C(:,2).*100,Qinsub10C(:,3).*100,'.');
 hold on;
-h20c=errorbar(Qintop20C(:,1),Qintop20C(:,2).*100,Qintop20C(:,3).*100,'LineWidth',2);
+h20c=errorbar(Qinsub20C(:,1),Qinsub20C(:,2).*100,Qinsub20C(:,3).*100,'.');
+
 
 h1=plot(obs.days10C,cres1'.*100,'k','LineWidth',2);
 
 plot(obs.days20C,cres2'.*100,'k','LineWidth',2);
 
 set_curAX(figh,ax(3));
-boxplot([q10f_pct',q10s_pct'],'Notch','on','Labels',{'Active pool Q_{10}','Slow pool Q_{10}'})
+boxplot([q10f,q10s],'Notch','on','Labels',{'Active pool Q_{10}','Slow pool Q_{10}'});
 set(ax(3),'TickLabelInterpreter','tex');
 
 
+bot_o100.obs=obs;
+bot_o100.cres1=cres1;
+bot_o100.cres2=cres2;
+bot_o100.q10f=q10f;
+bot_o100.q10s=q10s;
+bot_o100.flab=flab;
+save(iofile1,'bot_o100');
 
-top_o100.obs=obs;
-top_o100.cres1=cres1;
-top_o100.cres2=cres2;
-top_o100.q10f_pct=q10f_pct;
-top_o100.q10s_pct=q10s_pct;
-save(iofile1,'top_o100');
-
-[obs,cres1,cres2,~,q10f_pct,q10s_pct]=resomsubincub_exp2p('obs75top',1);
+[obs,cres1,cres2,~,q10f,q10s,flab]=gcbresomsubincub_exp2p('obs75',1,qrange);
  
 load('Qin_topsoil.mat');
 load('Qin_subsoil.mat');
 
 %figure;
-%errorbar(Qintop10C(:,1),Qintop10C(:,2),Qintop10C(:,3),'LineWidth',2);
+%errorbar(Qinsub10C(:,1),Qinsub10C(:,2),Qinsub10C(:,3),'LineWidth',2);
 %hold on;
-%errorbar(Qintop20C(:,1),Qintop20C(:,2),Qintop20C(:,3),'LineWidth',2);
+%errorbar(Qinsub20C(:,1),Qinsub20C(:,2),Qinsub20C(:,3),'LineWidth',2);
 set(0,'CurrentFigure',figh);
 set_curAX(figh,ax(2));
 h2=plot(obs.days10C,cres1'.*100,'g','LineWidth',2);
@@ -53,18 +57,18 @@ legend([h10c,h20c,h1(1),h2(1)],{'10\circC data','20\circC data','Inversion 1','I
 xlabel('Day','FontSize',16);
 ylabel('% Carbon respired','FontSize',16);
 set_curAX(figh,ax(4));
-boxplot([q10f_pct',q10s_pct'],'Notch','on','Labels',{'Active pool Q_{10}','Slow pool Q_{10}'})
+boxplot([q10f,q10s],'Notch','on','Labels',{'Active pool Q_{10}','Slow pool Q_{10}'});
 set(ax(4),'TickLabelInterpreter','tex');
 
 
-Ms=575;
+Ms=1800;
 
-incubator=get_incubation(Ms,'upper');
+incubator=get_incubation(Ms,'middle');
 set_curAX(figh,ax(1));
 
-h10c=errorbar(Qintop10C(:,1),Qintop10C(:,2).*100,Qintop10C(:,3).*100,'LineWidth',2);
+h10c=errorbar(Qinsub10C(:,1),Qinsub10C(:,2).*100,Qinsub10C(:,3).*100,'.');
 hold on;
-h20c=errorbar(Qintop20C(:,1),Qintop20C(:,2).*100,Qintop20C(:,3).*100,'LineWidth',2);
+h20c=errorbar(Qinsub20C(:,1),Qinsub20C(:,2).*100,Qinsub20C(:,3).*100,'.');
 
 h3=plot(incubator.cumresp_T10C.*100./incubator.Ctot,'b','LineWidth',2);
 hold on;
@@ -82,9 +86,10 @@ set(ax,'FontSize',16);
 
 
 
-top_o75.obs=obs;
-top_o75.cres1=cres1;
-top_o75.cres2=cres2;
-top_o75.q10f_pct=q10f_pct;
-top_o75.q10s_pct=q10s_pct;
-save(iofile2,'top_o75');
+bot_o75.obs=obs;
+bot_o75.cres1=cres1;
+bot_o75.cres2=cres2;
+bot_o75.q10f=q10f;
+bot_o75.q10s=q10s;
+bot_o75.flab=flab;
+save(iofile2,'bot_o75');

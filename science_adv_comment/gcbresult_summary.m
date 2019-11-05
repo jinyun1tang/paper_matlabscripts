@@ -1,11 +1,15 @@
 close all;
 clear all;
 
-qrange=4;
-iofile1=sprintf('q%2d%s',qrange,'bot_summary_o100.mat');
-iofile2=sprintf('q%2d%s',qrange,'bot_summary_o75.mat');
+qrange=20;
+iofile1=sprintf('q%05d%s',qrange,'bot_summary_o100.mat');
+iofile2=sprintf('q%05d%s',qrange,'bot_summary_o75.mat');
 
-[obs,cres1,cres2,~,q10f,q10s,flab]=gcbresomsubincub_exp2p('obs100',1,qrange);
+%iofile1=sprintf('qinf%s','bot_summary_o100.mat');
+%iofile2=sprintf('qinf%s','bot_summary_o75.mat');
+
+
+[obs,cres1,cres2,~,q10f,q10s,flab,k1c,k2c,k1w,k2w]=gcbresomsubincub_exp2p('obs100',1,qrange);
  
 load('Qin_topsoil.mat');
 load('Qin_subsoil.mat');
@@ -35,9 +39,13 @@ bot_o100.cres2=cres2;
 bot_o100.q10f=q10f;
 bot_o100.q10s=q10s;
 bot_o100.flab=flab;
+bot_o100.k1c=k1c;
+bot_o100.k2c=k2c;
+bot_o100.k1w=k1w;
+bot_o100.k2w=k2w;
 save(iofile1,'bot_o100');
 
-[obs,cres1,cres2,~,q10f,q10s,flab]=gcbresomsubincub_exp2p('obs75',1,qrange);
+[obs,cres1,cres2,~,q10f,q10s,flab,k1c,k2c,k1w,k2w]=gcbresomsubincub_exp2p('obs75',1,qrange);
  
 load('Qin_topsoil.mat');
 load('Qin_subsoil.mat');
@@ -92,4 +100,8 @@ bot_o75.cres2=cres2;
 bot_o75.q10f=q10f;
 bot_o75.q10s=q10s;
 bot_o75.flab=flab;
+bot_o75.k1c=k1c;
+bot_o75.k2c=k2c;
+bot_o75.k1w=k1w;
+bot_o75.k2w=k2w;
 save(iofile2,'bot_o75');

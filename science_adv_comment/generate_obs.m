@@ -13,10 +13,10 @@ ns=10;
 obs.days10C=repmat(day10C,ns,1)+rand(numel(day10C)*ns,1)-0.5;
 
 while(1)
-    obs.err10C=repmat(Qinsub10C(:,3),ns,1).*randn(numel(day10C)*ns,1).*errp;
+    err10C=repmat(Qinsub10C(:,3),ns,1).*randn(numel(day10C)*ns,1).*errp;
 
-    obs.obs10C=interp1(Qinsub10C(:,1),Qinsub10C(:,2),obs.days10C,'linear','extrap')+obs.err10C;
-    obs.err10C=abs(obs.err10C);
+    obs.obs10C=interp1(Qinsub10C(:,1),Qinsub10C(:,2),obs.days10C,'linear','extrap')+err10C;
+    obs.err10C=abs(err10C);
     if(min(obs.obs10C)>0)
         break;
     end
@@ -33,11 +33,11 @@ day20C=Qinsub20C(:,1)-0.5;
 obs.days20C=repmat(day20C,ns,1)+rand(numel(day20C)*ns,1)-0.5;
 
 while(1)
-    obs.err20C=repmat(Qinsub20C(:,3),ns,1).*randn(numel(day20C)*ns,1).*errp;
+    err20C=repmat(Qinsub20C(:,3),ns,1).*randn(numel(day20C)*ns,1).*errp;
 
-    obs.obs20C=interp1(Qinsub20C(:,1),Qinsub20C(:,2),obs.days20C,'linear','extrap')+obs.err20C;
+    obs.obs20C=interp1(Qinsub20C(:,1),Qinsub20C(:,2),obs.days20C,'linear','extrap')+err20C;
     
-    obs.err20C=abs(obs.err20C);
+    obs.err20C=abs(err20C);
     if(min(obs.obs20C)>0)
         break;
     end
@@ -67,10 +67,10 @@ ns=10;
 obs.days10C=repmat(day10C,ns,1)+rand(numel(day10C)*ns,1)-0.5;
 
 while(1)
-    obs.err10C=repmat(Qinsub10C(:,3),ns,1).*randn(numel(day10C)*ns,1).*errp;
+    err10C=err10C.*errp;
 
-    obs.obs10C=interp1(Qinsub10C(:,1),Qinsub10C(:,2),obs.days10C,'linear','extrap')+obs.err10C;
-    obs.err10C=abs(obs.err10C);
+    obs.obs10C=interp1(Qinsub10C(:,1),Qinsub10C(:,2),obs.days10C,'linear','extrap')+err10C;
+    obs.err10C=abs(err10C);
     if(min(obs.obs10C)>0)
         break;
     end
@@ -86,10 +86,10 @@ ns=9;
 day20C=Qinsub20C(:,1)-0.5;
 obs.days20C=repmat(day20C,ns,1)+rand(numel(day20C)*ns,1)-0.5;
 while(1)
-    obs.err20C=repmat(Qinsub20C(:,3),ns,1).*randn(numel(day20C)*ns,1).*errp;
+    err20C=err20C.*errp;
 
-    obs.obs20C=interp1(Qinsub20C(:,1),Qinsub20C(:,2),obs.days20C,'linear','extrap')+obs.err20C;
-    obs.err20C=abs(obs.err20C);
+    obs.obs20C=interp1(Qinsub20C(:,1),Qinsub20C(:,2),obs.days20C,'linear','extrap')+err20C;
+    obs.err20C=abs(err20C);
     if(min(obs.obs20C)>0)
         break;
     end

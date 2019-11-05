@@ -33,11 +33,15 @@ set_curAX(figh,ax(3));
 boxplot([top_o100.q10f_pct',top_o100.q10s_pct'],'Notch','on','Labels',{'Active pool Q_{10}','Slow pool Q_{10}'})
 set(ax(3),'TickLabelInterpreter','tex','Ylim',[1.5,5]);
 
+fprintf('top100 mean=%f,std=%f,mean=%f,std=%f\n',mean(top_o100.q10f_pct),std(top_o100.q10f_pct),...
+    mean(top_o100.q10s_pct),std(top_o100.q10s_pct));
 
 set_curAX(figh,ax(5));
 
 boxplot([top_o75.q10f_pct',top_o75.q10s_pct'],'Notch','on','Labels',{'Active pool Q_{10}','Slow pool Q_{10}'})
 set(ax(5),'TickLabelInterpreter','tex','Ylim',[1.5,5]);
+fprintf('bot75 mean=%f,std=%f,mean=%f,std=%f\n',mean(top_o75.q10f_pct),std(top_o75.q10f_pct),...
+    mean(top_o75.q10s_pct),std(top_o75.q10s_pct));
 
 set_curAX(figh,ax(2));
 load('Qin_subsoil.mat');
@@ -59,13 +63,17 @@ title('Subsoil','FontSize',16);
 set_curAX(figh,ax(4));
 
 boxplot([bot_o100.q10f_pct',bot_o100.q10s_pct'],'Notch','on','Labels',{'Active pool Q_{10}','Slow pool Q_{10}'})
-set(ax(3),'TickLabelInterpreter','tex','Ylim',[1.5,5]);
+set(ax(3),'TickLabelInterpreter','tex','Ylim',[1.5,4]);
 
-
+fprintf('bot100 mean=%f,std=%f,mean=%f,std=%f\n',mean(bot_o100.q10f_pct),std(bot_o100.q10f_pct),...
+    mean(bot_o100.q10s_pct),std(bot_o100.q10s_pct));
 set_curAX(figh,ax(6));
 
 boxplot([bot_o75.q10f_pct',bot_o75.q10s_pct'],'Notch','on','Labels',{'Active pool Q_{10}','Slow pool Q_{10}'})
-set(ax(6),'TickLabelInterpreter','tex','Ylim',[1.5,5]);
+
+fprintf('bot75 mean=%f,std=%f,mean=%f,std=%f\n',mean(bot_o75.q10f_pct),std(bot_o75.q10f_pct),...
+    mean(bot_o75.q10s_pct),std(bot_o75.q10s_pct));
+set(ax(6),'TickLabelInterpreter','tex','Ylim',[1.5,4]);
 set(ax(3:6),'Ylim',[1,5]);
 set(ax,'FontSize',16);
 

@@ -15,17 +15,19 @@ Ms=575;
 incubator=get_incubation(Ms,'upper');
 set_curAX(figh,ax(1));
 
-h10c=errorbar(Qintop10C(:,1),Qintop10C(:,2).*100,Qintop10C(:,3).*100,'r.');
+h10c=errorbar(Qintop10C(:,1),Qintop10C(:,2).*100,Qintop10C(:,3).*100,'r.','MarkerSize',12);
+h10c.CapSize=12;
 hold on;
-h20c=errorbar(Qintop20C(:,1),Qintop20C(:,2).*100,Qintop20C(:,3).*100,'b.');
+h20c=errorbar(Qintop20C(:,1),Qintop20C(:,2).*100,Qintop20C(:,3).*100,'b.','MarkerSize',12);
+h20c.CapSize=12;
 
 h3=plot(incubator.cumresp_T10C.*100./incubator.Ctot,'b--','LineWidth',2);
 hold on;
 plot(incubator.cumresp_T20C.*100./incubator.Ctot,'r--','LineWidth',2);
 
 
-title('Topsoil','FontSize',16);
-ylabel('% Carbon respired','FontSize',16);
+
+ylabel('% Carbon respired','FontSize',26);
 
 
 Ms=1800;
@@ -41,9 +43,9 @@ h3=plot(incubator.cumresp_T10C.*100./incubator.Ctot,'b--','LineWidth',2);
 hold on;
 h4=plot(incubator.cumresp_T20C.*100./incubator.Ctot,'r--','LineWidth',2);
 
-legend([h10c,h20c,h3(1),h4(1)],{'10\circC data','20\circC data',...
-    'RESOM Sim 10\circC','RESOM Sim 20\circC'},'FontSize',16,'location','best');
-title('Subsoil','FontSize',16);
+legend([h10c,h20c,h3(1),h4(1)],{'Observations @ 10\circC','Observations @ 20\circC',...
+    'RESOM Sim @ 10\circC','RESOM Sim @ 20\circC'},'FontSize',16,'location','best');
+
 
 
 set_curAX(figh,ax(3));
@@ -61,7 +63,7 @@ hold on;
 h5=plot((2:numel(incubator.cumresp_T10C))-1,log(synbot.cres1'.*100),'r-','LineWidth',2);
 plot(log(incubator.cumresp_T20C.*100./incubator.Ctot),'r--','LineWidth',2);
 h6=plot((2:numel(incubator.cumresp_T10C))-1,log(synbot.cres2'.*100),'b-','LineWidth',2);
-legend([h5(1),h6(1)],{'Two-pool model fit to RESOM 10\circC','Two-pool model fit to RESOM 20\circC'},'FontSize',16);
+legend([h5(1),h6(1)],{'Two-pool model fit to RESOM Sim @ 10\circC','Two-pool model fit to RESOM Sim @ 20\circC'},'FontSize',16);
 xlabel('Day','FontSize',16);
 set(ax(1:2),'XTickLabel','','YLim',[0,14]);
 set(ax([2,4]),'YTickLabel','');
@@ -70,4 +72,7 @@ put_tag(figh,ax(2),[0.05,0.85],'b',24);
 put_tag(figh,ax(3),[0.05,0.85],'c',24);
 put_tag(figh,ax(4),[0.05,0.85],'d',24);
 set(ax,'FontSize',16);
-
+set_curAX(figh,ax(1));
+title('Topsoil','FontSize',26);
+set_curAX(figh,ax(2));
+title('Subsoil','FontSize',26);
