@@ -21,10 +21,10 @@ par.B_sfa=1.; %microbial surface area for monomer binding
 par.somP_sfa=1.; %polymer surface area for enzyme binding
 par.K_EM =1;   %affinity of enzyme to mineral surface binding
 
-par.K_DB =1;   %affinity of monomer binding to structural microbial biomass
+par.micb.K_DB =1;   %affinity of monomer binding to structural microbial biomass
 par.K_DM =1;   %affinity of monomer binding to mineral surface
-par.K_O2B=1;   %affinity of oxygen binding to microbes
-par.V_DB =1;   %specific monomer processing rate [1/s]
+par.micb.K_O2B=1;   %affinity of oxygen binding to microbes
+par.micb.V_DB =1;   %specific monomer processing rate [1/s]
 
 par.micb.mic_ho=1;  %oxygen conditioned reserve mobilization rate [1/s]
 par.micb.mic_m=1;   %specific maintenance  rate [1/s]
@@ -62,6 +62,10 @@ par.mic_YldV=0.6;
 par.mic_YldE=0.6;
 par.Y_DX=0.6;
 
+par.micb.mic_alphaE_max=0.03;  %maximum enzyme produciton effort
+par.micb.mic_alphaE=par.micb.mic_alphaE_max;
+par.micb.mic_fR=1;
+par.micb.mic_Kx=1./0.6;
 par.micb.radc=1.e-6;  %cell radius, [m]
 par.micb.radp=1.e-9;  %porter radius, [m]
 par.micb.rc2rp=par.micb.radc/par.micb.radp;

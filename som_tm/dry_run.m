@@ -14,7 +14,7 @@ envobj=EnvClass(pct_sand,pct_clay,fom,zsoi,par0);
 soim=0.6; %normalized soil moisture
 tsoi=283;
 par=resom_envset(par0,tsoi,soim,zsoi,envobj);
-
+par.debug=1;
 vid=par.vid;
 x=zeros(vid.vsz,1);
 x(vid.o2)=8.3;

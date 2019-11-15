@@ -13,9 +13,9 @@ nD=numel(D);
 nB=numel(B);
 KD = [extra.K_DB,extra.K_DM]; %shape [nA,nE]
 KO2 =[extra.K_O2B,zeros(extra.K_DM)];%shape [nB,nE]
-V_DB=extra.V_DB;  %shape [nD,nB]
+V_DB=extra.micb.V_DB;  %shape [nD,nB]
 EAB=supeca(D,O2,E,KD,KO2);
 
-monomerf=squeeze(EAB(1:nD,1,1:nB)).*V_DB;
+monomerf=squeeze(EAB(1:nD,1,1:nB)).*V_DB.*extra.micb.mic_fR;
 
 end

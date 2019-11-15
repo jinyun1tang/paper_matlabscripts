@@ -2,11 +2,11 @@ function [rgs,pes,rCO2,rds,mobXs]=micbphysiology(x,extra)
 %micbphysiology(x,extra)
 %do microbial physiology 
 %Jinyun Tang: jinyuntang@lbl.gov
-%central dogma
-%DNA->RNA-> protein
-%transcription: DNA-> mRNA (RNA polymerease)
-%translation: mRNA->protein
-%protein sends signal to ribosome, which does transcription
+%Central dogma
+%  DNA->RNA-> protein
+%  transcription: DNA-> mRNA (RNA polymerease)
+%  translation: mRNA->protein
+%  protein sends signal to ribosome, which does transcription
 %return variable:
 %rgs: specific structural growth
 %pes: specific enzyme production
@@ -26,6 +26,9 @@ mobXs=zeros(nB,1);
 for jj = 1 : nB
     %potenial reserve flux excess
     xe=x(vid.micBX(jj))/x(vid.micBV(jj));
+    %determine inhibition factor
+    micb.mic_fR(jj)=micb.mic_Kx(jj)/(micb.mic_Kx(jj)+xe);
+    micb.mic_alphaE(jj)=micb.mic_alphaE_max(jj)*micb.mic_fR(jj);
     rd=0.0;
     if(micb.mic_ho(jj)*xe<micb.mic_m(jj))
         %mobilized reserve flux is insufficient for maintenance
@@ -33,7 +36,9 @@ for jj = 1 : nB
         %electron acceptor is limiting?
         if(micb.mic_h(jj)*xe<micb.mic_m(jj))
             %no
-            fprintf('structural biomass is shrinked to support maintenance\n');
+            if(extra.debug)
+                fprintf('structural biomass is shrinked to support maintenance\n');
+            end
             rg=-(micb.mic_m(jj)-micb.mic_h(jj)*xe)...
                 /(xe+extra.mic_yldVm(jj));   
             %total amount of respired CO2 for maintenance
@@ -41,7 +46,9 @@ for jj = 1 : nB
             mobX=(micb.mic_ho(jj)-rg)*xe;          
             
         else
-            fprintf('yes, then cells are killed.\n');
+            if(extra.debug)
+                fprintf('yes, then cells are killed.\n');
+            end
             rd=-(micb.mic_ho(jj)*xe-micb.mic_m(jj)); %>0
             %amount of CO2 respired for maintenance
             rmCO2=micb.mic_ho(jj)*xe; 
@@ -52,10 +59,12 @@ for jj = 1 : nB
         pe=0.0;peCO2=0.;
         
     else
-        fprintf('active growth is allowed\n');
+        if(extra.debug)
+            fprintf('active growth is allowed\n');
+        end
         rg=(micb.mic_ho(jj)*xe-micb.mic_m(jj))...
             /(xe+(1.0+micb.mic_ea(jj))/extra.mic_YldV(jj));
-        pe=rg/extra.mic_YldV(jj)*extra.mic_YldE(jj);
+        pe=rg/extra.mic_YldV(jj)*extra.mic_YldE(jj)*extra.mic_alphaE(jj);
         rmCO2=micb.mic_m(jj);
         rgCO2=rg*(1./extra.mic_YldV(jj)-1.0);
         peCO2=pe*(1./extra.mic_YldE(jj)-1.0);
@@ -67,7 +76,9 @@ for jj = 1 : nB
     rCO2(jj)=rmCO2+rgCO2+peCO2;
     rds(jj)=rd;
     mobXs(jj)=mobX;
-    fprintf('mobX=%e,rmCO2=%e,rgCO2=%e,peCO2=%e,rg=%e,pe=%e\n',mobX,rmCO2,rgCO2,peCO2,rg,pe);
-    fprintf('mr=%e,err=%e\n',micb.mic_m(jj),-mobX+rmCO2+rgCO2+peCO2+rg+pe);
+    if(extra.debug)
+        fprintf('mobX=%e,rmCO2=%e,rgCO2=%e,peCO2=%e,rg=%e,pe=%e\n',mobX,rmCO2,rgCO2,peCO2,rg,pe);
+        fprintf('mr=%e,err=%e\n',micb.mic_m(jj),-mobX+rmCO2+rgCO2+peCO2+rg+pe);
+    end
 end
 end

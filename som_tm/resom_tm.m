@@ -14,10 +14,6 @@ dxdt(vid.somD)=extra.I_somD./12;  %mol C/s
 %return a 1xnP vector
 depolymerf=depolymerization(x,extra);
 
-%monomer uptake
-%return a nD*nB vector
-monomerf=monomeruptake(x,extra);
-
 %microbial physiology
 %return 1xnB vectors
 %get oxygen stress
@@ -26,6 +22,11 @@ fO2=getmic_fO2(x,extra);
 extra.micb.mic_ho=extra.micb.mic_h.*fO2;
 
 [rgs,pes,rCO2,rds, mobXs]=micbphysiology(x,extra);
+
+%monomer uptake
+%return a nD*nB vector
+monomerf=monomeruptake(x,extra);
+
 
 %microbial mortality, predation
 %return 1xnB, 1xnE vectors
