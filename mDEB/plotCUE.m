@@ -34,6 +34,8 @@ hold on;
 plot(mu2,cue2);
 
 function [cue,mu]=cuem(K,v)
+%mDEB structural CUE, with kappa=1
+%cue/Yx
 Yv=0.5;
 
 m=1;
@@ -43,6 +45,9 @@ cue=mu./(mu+m).*(Yv.*v-m-mu)./(Yv.*v-m-mu+Yv.*K.*mu);
 end
 
 function [cue,mu]=cuet(K,v)
+%mDEB total biomass CUE, with kappa=1
+%cue/Yx
+%Table 1
 Yv=0.5;
 m=1;
 mu=(0:0.02:4-eps);
@@ -51,6 +56,8 @@ cue=mu./(mu+m).*(Yv.*v-(m+mu).*(1-K))./(Yv.*v-m-mu+Yv.*K.*mu);
 end
 
 function mu=growth(jA)
+%eq. (21) 
+%growth rate vs substrate
 m=1;
 v=10*m;
 Yv=0.5;
@@ -60,7 +67,9 @@ mu=(m+v)./2.*(-1+sqrt(1+4.*v.*(jA.*Yv-m)./(m+v).^2));
 end
 
 function [cue,mu]=mDEBgK()
-
+%mDEB model with K>>x
+%structural biomass yield
+%Eq. (19) in the paper
 v=10;
 mu=(0:0.1:8);
 m=1;
@@ -69,7 +78,9 @@ end
 
 
 function [cue,mu]=sDEB()
-
+%sDEB model
+%structural biomass yield
+%Table 1
 v=10;
 mu=(0:0.1:8);
 m=1;

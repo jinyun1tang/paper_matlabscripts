@@ -41,16 +41,16 @@ if(jG_C > 0. && jG_N > 0.)
     mu=1./(1./jG_C+1./jG_N-1./(jG_C+jG_N));
     jR_C=(jG_C-mu)*par.yVC;
     jR_N=(jG_N-mu)*par.yVN;
-    jX_C=(par.yVC-par.nV_C)*mu+par.jM_C;
-    jX_N=(par.yVN-par.nV_N)*mu+par.jM_N;
+    jX_C=(par.yVC-par.nV_C)*mu+par.jM_C;%+jR_C;
+    jX_N=(par.yVN-par.nV_N)*mu+par.jM_N;%+jR_N;
 else
     %negative growth, structural biomass is lost/respired
     %to make up the maintenance cost
     mu=-max([-jG_C,-jG_N,0.]);
     jR_C=max([jG_C,0.])*par.yVC;
     jR_N=max([jG_N,0.])*par.yVN;
-    jX_C=min([jE_C,par.jM_C])-mu*par.nV_C;
-    jX_N=min([jE_N,par.jM_N])-mu*par.nV_N;
+    jX_C=min([jE_C,par.jM_C])-mu*par.nV_C;%+jR_C;
+    jX_N=min([jE_N,par.jM_N])-mu*par.nV_N;%+jR_N;
 end
 %update state variable trend
 dydt(vid.xC)=jA_C-jE_C-mu*xC+par.kapaEC*jR_C;
