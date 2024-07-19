@@ -16,30 +16,21 @@ mu12=mDEB_grogK(jA,Yv,v0);
 mu22=sDEB_gro(jA,Yv,v0);
 
 fig1=1;
-ax1=multipanel(fig1,1,2,[.1,.1],[.4,.85],[.06,0.1]);
-set_curAX(fig1,ax1(1));
-h(1)=plot(sA,mu11,'--','LineWidth',2);
+h(1)=plot(sA,mu11,'b--','LineWidth',2);
 hold on;
-h(2)=plot(sA,mu21,'LineWidth',2);
-legend(h,'mDEB model','sDEB model','location','Southeast');
-xlabel('Normalized substate availability (S/K_S)','FontSize',16);
-ylabel('Normalized specific structural biomass growth rate (\mu/m_V)','FontSize',16);
-ylim([-2,5]);
-set_curAX(fig1,ax1(2));
-h(1)=plot(sA,mu12,'--','LineWidth',2);
-hold on;
-h(2)=plot(sA,mu22,'LineWidth',2);
-xlabel('Normalized substate availability (S/K_S)','FontSize',16);
-ylabel('Normalized specific structural biomass growth rate (\mu/m_V)','FontSize',16);
-
+h(2)=plot(sA,mu21,'b','LineWidth',2);
+h(3)=plot(sA,mu12,'k--','LineWidth',2);
+h(4)=plot(sA,mu22,'k','LineWidth',2);
+xlabel('Normalized substate availability (S/K_S)','FontSize',20);
+ylabel('Normalized specific structural biomass growth rate (\mu/m_V)','FontSize',20);
 set(fig1,'color','w');
-set(ax1,'FontSize',16);
-put_tag(fig1,ax1(1),[0.03,0.95],'(a) v_E=10m_V',18);
-put_tag(fig1,ax1(2),[0.03,0.95],'(b) v_E=100m_V',18);
-
-%%%
+legend(h,'mDEB: v_E=10m_V','sDEB: v_E=10m_V','mDEB: v_E=100m_V','sDEB: v_E=100m_V');
+set(gca,'FontSize',18);
+clear h;
+%%
 fig2=2;
-ax=multipanel(fig2,2,2,[.1,.1],[.4,.4],[.06,0.06]);
+fontsz=24;
+ax=multipanel(fig2,2,2,[.1,.1],[.4,.4],[.06,0.08]);
 v0=15;
 [cue1,mu1]=cueYv_mDEBgK(v0);
 [cue2,mu2]=cueYv_sDEB(v0);
@@ -48,8 +39,8 @@ h(1)=plot(mu1,cue1,'LineWidth',2);
 hold on;
 h(2)=plot(mu2,cue2,'LineWidth',2);
 legend(h,'mDEB model','sDEB model','location','Northeast');
-xlabel('Normalized specific growth rate (\mu/m_V)','FontSize',18);
-ylabel('Normalized structural biomass yield (Y_\mu/Y_X)','FontSize',18);
+xlabel('Specific growth rate (\mu/m_V)','FontSize',fontsz);
+ylabel('Structural biomass yield (Y_\mu/Y_X)','FontSize',fontsz);
 ylim([0,1]);
 [cue3,mu3]=cueYB_mDEBgK(Yv,v0);
 [cue4,mu4]=cueYB_sDEB(Yv,v0);
@@ -57,8 +48,8 @@ set_curAX(fig2,ax(2));
 plot(mu3,cue3,'LineWidth',2);
 hold on;
 plot(mu4,cue4,'LineWidth',2);
-xlabel('Normalized specific growth rate (\mu/m_V)','FontSize',18);
-ylabel('Normalized total biomass yield (Y_B/Y_X)','FontSize',18);
+xlabel('Specific growth rate (\mu/m_V)','FontSize',fontsz);
+ylabel('Total biomass yield (Y_B/Y_X)','FontSize',fontsz);
 %%
 v0=100;
 [cue1,mu1]=cueYv_mDEBgK(v0);
@@ -68,8 +59,8 @@ h(1)=plot(mu1,cue1,'LineWidth',2);
 hold on;
 h(2)=plot(mu2,cue2,'LineWidth',2);
 %legend(h,'mDEB model','sDEB model','location','Northeast');
-xlabel('Normalized specific growth rate (\mu/m_V)','FontSize',18);
-ylabel('Normalized structural biomass yield (Y_\mu/Y_X)','FontSize',18);
+xlabel('Specific growth rate (\mu/m_V)','FontSize',fontsz);
+ylabel('Structural biomass yield (Y_\mu/Y_X)','FontSize',fontsz);
 ylim([0,1]);
 [cue3,mu3]=cueYB_mDEBgK(Yv,v0);
 [cue4,mu4]=cueYB_sDEB(Yv,v0);
@@ -77,15 +68,15 @@ set_curAX(fig2,ax(4));
 plot(mu3,cue3,'LineWidth',2);
 hold on;
 plot(mu4,cue4,'LineWidth',2);
-xlabel('Normalized specific growth rate (\mu/m_V)','FontSize',18);
-ylabel('Normalized total biomass yield (Y_B/Y_X)','FontSize',18);
+xlabel('Specific growth rate (\mu/m_V)','FontSize',fontsz);
+ylabel('Total biomass yield (Y_B/Y_X)','FontSize',fontsz);
 %%
 
-set(ax,'FontSize',16);
-put_tag(fig2,ax(1),[0.03,0.9],'(a) v_E=15m_V',18);
-put_tag(fig2,ax(2),[0.03,0.9],'(b) v_E=15m_V',18);
-put_tag(fig2,ax(3),[0.03,0.9],'(c) v_E=100m_V',18);
-put_tag(fig2,ax(4),[0.03,0.9],'(d) v_E=100m_V',18);
+set(ax,'FontSize',20);
+put_tag(fig2,ax(1),[0.03,0.9],'(a) v_E=15m_V',fontsz);
+put_tag(fig2,ax(2),[0.03,0.9],'(b) v_E=15m_V',fontsz);
+put_tag(fig2,ax(3),[0.03,0.9],'(c) v_E=100m_V',fontsz);
+put_tag(fig2,ax(4),[0.03,0.9],'(d) v_E=100m_V',fontsz);
 
 
 
